@@ -34,9 +34,10 @@ var Board = function() {
         
     };
 
-    this.draw = function() { 
+    this.draw = function(drawer) { 
         for(var x = 0; x < BOARD_WIDTH; x++) {
             for(var y = 0; y < BOARD_HEIGHT; y++) {
+                drawer.DrawRect();
                 //Draw tile
             }
         }

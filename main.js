@@ -7,6 +7,7 @@ var lastFrameTime;
 
 requestAnimationFrame(main);
 
+// Main game loop
 function main(time) {
     
     if(time < lastFrameTime + 1000 / fps) {
@@ -18,7 +19,8 @@ function main(time) {
 
     game.update();
 
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    drawer.clear();
+
     game.draw(drawer);
 
     requestAnimationFrame(main);

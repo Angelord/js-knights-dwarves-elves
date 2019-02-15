@@ -13,12 +13,12 @@ var Game = function() {
         logic.update();
     };
 
-    this.draw = function() {
+    this.draw = function(drawer) {
 
-        board.draw();
+        board.draw(drawer);
 
         units.forEach(unit => {
-            unit.draw();
+            unit.draw(drawer);
         });
     };
 };
