@@ -5,10 +5,11 @@ var Drawer = function(canvas) {
     var context = canvas.getContext('2d');
 
     this.drawRect = function(rect, color) {
+        if(!rect) { return; }
 
-        var colorRef = color ? color : "#000000";
+        var colorRef = color ? color : "#CCCCCC";
 
-        //TODO : Set the color
+        context.fillStyle = colorRef;
 
         context.fillRect(rect.x, rect.y, rect.w, rect.h);
     };

@@ -3,9 +3,17 @@
 var Game = function() {
 
     var board = new Board();
-    var players = [ new Player(), new Player() ];
-    
-    var logic = new PlacementLogic(board);
+    var pieces = [];
+
+    this.addPiece = function(piece) {
+        if(piece) {
+            pieces.push(piece);
+        }
+    };
+
+    var players = [ new Player(0, this), new Player(0, this) ];
+
+    var logic = new PlacementLogic(board, players);
 
     this.update = function() {
         
@@ -16,9 +24,9 @@ var Game = function() {
     this.draw = function(drawer) {
 
         board.draw(drawer);
-
-        units.forEach(unit => {
-            unit.draw(drawer);
+        return;
+        pieces.forEach(piece => {
+            piece.draw(drawer);
         });
     };
 };
