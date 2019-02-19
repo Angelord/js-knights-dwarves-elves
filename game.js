@@ -16,9 +16,8 @@ var Game = function() {
     var logic = new PlacementLogic(board, players);
 
     this.update = function() {
-        
-        board.update();
         logic.update();
+        board.update();
     };
 
     this.draw = function(drawer) {

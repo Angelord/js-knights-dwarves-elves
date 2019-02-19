@@ -4,8 +4,14 @@ var drawer = new Drawer(canvas);
 var game = new Game();
 var fps = 60;
 var lastFrameTime;
+var started = false;
 
-requestAnimationFrame(main);
+window.addEventListener('load', function(e) {
+    if(!started) {
+        requestAnimationFrame(main);
+        started = true;
+    }
+});
 
 // Main game loop
 function main(time) {
@@ -25,14 +31,3 @@ function main(time) {
 
     requestAnimationFrame(main);
 }
-
-canvas.addEventListener("mousedown", function(e) { } );
-canvas.addEventListener("click", function(e) { } );
-canvas.addEventListener("mouseup", function(e) { } );
-
-
-//Draw in memory only
-// context.rect(10, 10, 100, 100)
-
-//Visualize
-// context.fill()

@@ -2,15 +2,21 @@
 var UNIT_SIZE = new Point(40, 40);
 
 var createKnight = function(owner) {
-    return new Unit(owner, 8, 3, 15, 1, 1);
+    var knight = new Unit(owner, 8, 3, 15, 1, 1);
+    knight.toString = function() { return "knight"; }
+    return knight;
 }
 
 var createElf = function(owner) {
-    return new Unit(owner, 5, 1, 10, 3, 3);
+    var elf = new Unit(owner, 5, 1, 10, 3, 3);
+    elf.toString = function() { return "elf"; }
+    return elf;
 }
 
 var createDwarf = function(owner) {
-    return new Unit(owner, 6, 2, 12, 2, 2);
+    var dwarf = new Unit(owner, 6, 2, 12, 2, 2);
+    dwarf.toString = function() { return "dwarf"; }
+    return dwarf;
 }
 
 var Unit = function(owner, damage, armor, health, attRange, movement) {
