@@ -19,7 +19,7 @@ function main(time) {
 
     game.update();
 
-    // drawer.clear();
+    drawer.clear();
 
     game.draw(drawer);
 

@@ -15,6 +15,6 @@ var Drawer = function(canvas) {
     };
 
     this.clear = function() {
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
     };
 };
