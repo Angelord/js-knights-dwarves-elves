@@ -1,4 +1,5 @@
 
+var UNIT_SIZE = new Point(40, 40);
 
 var createKnight = function(owner) {
     return new Unit(owner, 8, 3, 15, 1, 1);
@@ -27,7 +28,6 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
 
     this.getWorldPos = function() { return worldPos; }
     this.setWorldPos = function(value) { if(value) { worldPos = value; } }
-    this.setWorldPos = function(x, y) { if(x && y) { worldPos = new Point(x, y); } }
 
     this.getHealth = function() { return curHealth; }
     this.getMaxHealth = function() { return this.health; }  
@@ -65,7 +65,13 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     this.draw = function(drawer) {
         if(!drawer) { return; }
 
-        drawer.drawRect(new Rect(worldPos.x, worldPos.y, 30, 30));
+        var rectToDraw = new Rect( 
+                worldPos.x - UNIT_SIZE.x / 2,
+                worldPos.y - UNIT_SIZE.y / 2,
+                UNIT_SIZE.x,
+                UNIT_SIZE.y
+        ); 
+        drawer.drawRect(rectToDraw, "#555555");
     };
 }
 

@@ -1,7 +1,7 @@
 
 
-var PLAYER_1_OFFSET = new Point(300, 100);
-var PLAYER_2_OFFSET = new Point(300, 400);
+var PLAYER_1_OFFSET = new Point(600, 100);
+var PLAYER_2_OFFSET = new Point(600, 300);
 var UNIT_OFFSET = new Point(60, 60);
 
 var Player = function(index, game) {
@@ -23,7 +23,8 @@ var Player = function(index, game) {
         for(var y = 0; y < 3; y++) {
             var unit = this.units[y * 2 + x];
 
-            unit.setWorldPos(offset.x + x * UNIT_OFFSET.x, offset.y + y * UNIT_OFFSET * y);
+            var pos = new Point(offset.x + x * UNIT_OFFSET.x, offset.y + y * UNIT_OFFSET.y);
+            unit.setWorldPos(pos);
         }
     }
 };
