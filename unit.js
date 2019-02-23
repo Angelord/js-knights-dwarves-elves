@@ -39,6 +39,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     this.getMaxHealth = function() { return this.health; }  
 
     this.isDead = function() { return curHealth <= 0; }
+    this.isPlaced = function() { return placed; }
 
     this.raycast = function(pos) {
         if(!pos) { throw("Missing argument!"); }

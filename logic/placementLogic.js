@@ -37,7 +37,7 @@ var PlacementLogic = function(board, players) {
         var curPlayerUnits = players[curPlayer].units;
         for(var i = 0; i < curPlayerUnits.length; i++) {
             var unit = curPlayerUnits[i];
-            if(unit.raycast(mousePos)) {
+            if(!unit.isPlaced() && unit.raycast(mousePos)) {
                 select(unit);
                 break;
             }
