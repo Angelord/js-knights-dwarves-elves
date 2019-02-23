@@ -4,18 +4,24 @@ var UNIT_SIZE = new Point(40, 40);
 var createKnight = function(owner) {
     var knight = new Unit(owner, 8, 3, 15, 1, 1);
     knight.toString = function() { return "knight"; }
+    knight.color = "#5555AA";
+
     return knight;
 }
 
 var createElf = function(owner) {
     var elf = new Unit(owner, 5, 1, 10, 3, 3);
     elf.toString = function() { return "elf"; }
+    elf.color = "#55AA55";
+
     return elf;
 }
 
 var createDwarf = function(owner) {
     var dwarf = new Unit(owner, 6, 2, 12, 2, 2);
     dwarf.toString = function() { return "dwarf"; }
+    dwarf.color = "#AAAA55";
+
     return dwarf;
 }
 
@@ -26,6 +32,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     this.health = health;
     this.attRange = attRange;
     this.movement = movement;
+    this.color = "#888888";
 
     var curHealth = health;
     var placed = false;
@@ -83,7 +90,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         if(!drawer) { return; }
 
         var rectToDraw = getBoundingRect();
-        drawer.drawRect(rectToDraw, "#888888");
+        drawer.drawRect(rectToDraw, this.color);
     };
 
     function getBoundingRect() {
