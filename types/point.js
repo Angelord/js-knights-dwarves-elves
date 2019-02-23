@@ -23,3 +23,7 @@ Point.prototype.distance = function(other) {
 Point.prototype.magnitude = function() {
     return Math.sqrt(this.x * this.x + this.y * this.y);
 }
+
+Point.prototype.round = function() {
+    return new Point(Math.round(this.x), Math.round(this.y));
+}

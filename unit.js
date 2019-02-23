@@ -56,6 +56,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     
         this.board = board;
         boardPos = pos;
+        worldPos = board.boardToWorldPos(boardPos);
         board.setPiece(pos, this);
         placed = true;
     };

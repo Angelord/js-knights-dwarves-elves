@@ -24,17 +24,26 @@ var Board = function() {
     }
 
     //Transforms mouse coordinates to board coordinates
-    this.mouseToBoardPos = function(pos){
+    this.worldToBoardPos = function(pos) {
         if(!pos) { throw("Missing argument!"); }
 
         var transformed = new Point(pos.x, pos.y);
-        transformed.x -= OFFSET.x;
-        transformed.y -= OFFSET.y;
+        transformed = transformed.sub(OFFSET);
         transformed.x /= (TILE_SIZE.x + TILE_SPACING.x);
         transformed.y /= (TILE_SIZE.y + TILE_SPACING.y);
-        transformed.x = Math.round(transformed.x);
-        transformed.y = Math.round(transformed.y);
+        transformed = transformed.round();
 
+        return transformed;
+    };
+
+    this.boardToWorldPos = function(pos) {
+        if(!pos) { throw("Missing argument!"); }
+
+        var transformed = new Point(pos.x, pos.y);
+        transformed.x *= (TILE_SIZE.x + TILE_SPACING.x);
+        transformed.y *= (TILE_SIZE.y + TILE_SPACING.y);
+        transformed = transformed.add(OFFSET);
+        
         return transformed;
     };
 
@@ -88,8 +97,8 @@ var Board = function() {
                     color = COLOR_DARKENED;
                 }
 
-                var rect = new Rect(OFFSET.x + (TILE_SIZE.x + TILE_SPACING.x) * x,
-                                    OFFSET.y + (TILE_SIZE.y + TILE_SPACING.y) * y, 
+                var rect = new Rect(OFFSET.x + (TILE_SIZE.x + TILE_SPACING.x) * x - TILE_SIZE.x / 2,
+                                    OFFSET.y + (TILE_SIZE.y + TILE_SPACING.y) * y - TILE_SIZE.y / 2, 
                                     TILE_SIZE.x, 
                                     TILE_SIZE.y );
 
