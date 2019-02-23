@@ -91,6 +91,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
 
         var rectToDraw = getBoundingRect();
         drawer.drawRect(rectToDraw, this.color);
+        drawer.drawText(curHealth, "30px Arial", worldPos, "black");
     };
 
     function getBoundingRect() {

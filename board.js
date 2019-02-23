@@ -4,8 +4,9 @@ var OFFSET = new Point(90, 90);
 var TILE_SIZE = new Point(50, 50);
 var TILE_SPACING = new Point(5, 5);
 
-var PLAYER_1_REGION = new Rect(0, 0, BOARD_SIZE.x, 2);
-var PLAYER_2_REGION = new Rect(0, 5, BOARD_SIZE.x, 2);
+var REGION_PLAYER_1 = new Rect(0, 0, BOARD_SIZE.x, 2);
+var REGION_PLAYER_2 = new Rect(0, 5, BOARD_SIZE.x, 2);
+var REGION_BATTLEFIElD = new Rect(0, 2, BOARD_SIZE.x, 3);
 
 var COLOR_HIGHLIGHT = "#555555"; 
 var COLOR_DARKENED = "#771111";
@@ -72,7 +73,7 @@ var Board = function() {
     };
 
     this.highlightPlayerRegion = function(playerIndex) {
-        highlightRegion = (playerIndex == 0) ? PLAYER_1_REGION : PLAYER_2_REGION;
+        highlightRegion = (playerIndex == 0) ? REGION_PLAYER_1 : REGION_PLAYER_2;
     };
 
     this.clearHighlight = function() {
