@@ -10,7 +10,7 @@ var Rect = function(x, y, w, h) {
 };
 
 Rect.prototype.contains = function(pos) {
-    if(!pos) { throw("ERROR : Missing argument for Rect.contains!"); }
+    if(!pos) { throw("Missing argument!"); }
     
     return (pos.x >= this.x && 
             pos.x < (this.x + this.w) &&

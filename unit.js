@@ -41,7 +41,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     this.isDead = function() { return curHealth <= 0; }
 
     this.raycast = function(pos) {
-        if(!pos) { throw("ERROR : Missing argument for unit.Raycast()!"); }
+        if(!pos) { throw("Missing argument!"); }
 
         var boundingRect = getBoundingRect();
 
