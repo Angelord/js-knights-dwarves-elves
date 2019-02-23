@@ -79,19 +79,14 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     this.draw = function(drawer) {
         if(!drawer) { return; }
 
-        var rectToDraw = new Rect( 
-                worldPos.x,
-                worldPos.y,
-                UNIT_SIZE.x,
-                UNIT_SIZE.y
-        ); 
+        var rectToDraw = getBoundingRect();
         drawer.drawRect(rectToDraw, "#555555");
     };
 
     function getBoundingRect() {
         return new Rect( 
-            worldPos.x,
-            worldPos.y,
+            worldPos.x - UNIT_SIZE.x / 2,
+            worldPos.y - UNIT_SIZE.y / 2,
             UNIT_SIZE.x,
             UNIT_SIZE.y
         );

@@ -24,13 +24,13 @@ var PlacementLogic = function(board, players) {
 
     function onMouseMove(e) {
         if(selectedUnit) {
-            var mousePos = new Point(e.clientX, e.clientY);
+            var mousePos = new Point(e.offsetX, e.offsetY);
             selectedUnit.setWorldPos(mousePos);
         }
     }
 
     function onMouseDown(e) {
-        var mousePos = new Point(e.clientX, e.clientY);
+        var mousePos = new Point(e.offsetX, e.offsetY);
 
         var curPlayerUnits = players[curPlayer].units;
         for(var i = 0; i < curPlayerUnits.length; i++) {
