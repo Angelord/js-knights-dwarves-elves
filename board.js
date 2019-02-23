@@ -1,13 +1,11 @@
 
-var BOARD_WIDTH = 9;
-var BOARD_HEIGHT = 7;
-
+var BOARD_SIZE = new Point(9, 7);
 var OFFSET = new Point(60, 60);
 var TILE_SIZE = new Point(50, 50);
 var TILE_SPACING = new Point(5, 5);
 
-var PLAYER_1_REGION = new Rect(0, 0, BOARD_WIDTH, 2);
-var PLAYER_2_REGION = new Rect(0, 5, BOARD_WIDTH, 2);
+var PLAYER_1_REGION = new Rect(0, 0, BOARD_SIZE.x, 2);
+var PLAYER_2_REGION = new Rect(0, 5, BOARD_SIZE.x, 2);
 
 var COLOR_HIGHLIGHT = "#888888"; 
 var COLOR_DARKENED = "#444444";
@@ -18,9 +16,9 @@ var Board = function() {
     var pieces = [];
     var highlightRegion = null;
 
-    for(var x = 0; x < BOARD_WIDTH; x++) {
+    for(var x = 0; x < BOARD_SIZE.x; x++) {
         tiles.push([]);
-        for(var y = 0; y < BOARD_HEIGHT; y++) {
+        for(var y = 0; y < BOARD_SIZE.y; y++) {
             tiles[0].push(null);
         }
     }
@@ -83,8 +81,8 @@ var Board = function() {
 
     this.draw = function(drawer) { 
 
-        for(var x = 0; x < BOARD_WIDTH; x++) {
-            for(var y = 0; y < BOARD_HEIGHT; y++) {
+        for(var x = 0; x < BOARD_SIZE.x; x++) {
+            for(var y = 0; y < BOARD_SIZE.y; y++) {
                 var pos = new Point(x, y);
 
                 var color = COLOR_HIGHLIGHT;
