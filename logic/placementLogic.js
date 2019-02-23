@@ -7,6 +7,7 @@ var PlacementLogic = function(board, players) {
     var playersRef = players;
 
     var curPlayer = 0;
+    board.highlightPlayerRegion(curPlayer);
 
     var selectedUnitStartingPos = null;
     var selectedUnit = null;
@@ -18,7 +19,6 @@ var PlacementLogic = function(board, players) {
     canvas.addEventListener("mousedown", onMouseDown);
     canvas.addEventListener("mouseup", onMouseUp);
 
-    board.highlightPlayerRegion(0);
 
     this.update = function() {
         
