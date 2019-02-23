@@ -18,6 +18,8 @@ var PlacementLogic = function(board, players) {
     canvas.addEventListener("mousedown", onMouseDown);
     canvas.addEventListener("mouseup", onMouseUp);
 
+    board.highlightPlayerRegion(0);
+
     this.update = function() {
         
     };

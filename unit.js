@@ -92,8 +92,3 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         );
     };
 }
-
-//Try this later
-// Unit.prototype.attack = function(otherUnit) {
-//     otherUnit.takeDamage(this.damage);
-// }
