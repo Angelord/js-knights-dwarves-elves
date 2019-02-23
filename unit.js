@@ -55,8 +55,9 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
             throw ("Attempting to place a game piece for a second time!");
     
         this.board = board;
-        placed = true;
         boardPos = pos;
+        board.setPiece(pos, this);
+        placed = true;
     };
 
     this.attack = function(otherUnit) {

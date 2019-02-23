@@ -1,8 +1,6 @@
 
 var BOARD_WIDTH = 9;
 var BOARD_HEIGHT = 7;
-var TILE_WIDTH = 40;
-var TILE_HEIGHT = 40;
 
 var OFFSET = new Point(60, 60);
 var TILE_SIZE = new Point(50, 50);
@@ -23,9 +21,50 @@ var Board = function() {
     for(var x = 0; x < BOARD_WIDTH; x++) {
         tiles.push([]);
         for(var y = 0; y < BOARD_HEIGHT; y++) {
-            tiles[0].push(0);
+            tiles[0].push(null);
         }
     }
+
+    //Transforms mouse coordinates to board coordinates
+    this.mouseToBoardPos = function(pos){
+        if(!pos) { throw("Missing argument!"); }
+
+        var transformed = new Point(pos.x, pos.y);
+        transformed.x -= OFFSET.x;
+        transformed.y -= OFFSET.y;
+        transformed.x /= (TILE_SIZE.x + TILE_SPACING.x);
+        transformed.y /= (TILE_SIZE.y + TILE_SPACING.y);
+        transformed.x = Math.round(transformed.x);
+        transformed.y = Math.round(transformed.y);
+
+        console.log(transformed);
+
+        return transformed;
+    };
+
+    this.getPiece = function(pos) {
+        if(!pos) { throw("Missing argument!"); }
+
+        return tiles[pos.x][pos.y];
+    };
+
+    this.setPiece = function(pos, piece) {
+        if(!pos) { throw("Missing argument!"); }
+
+        tiles[pos.x][pos.y] = piece;
+
+        if(!pieces.includes(piece)) {
+            pieces.push(piece);
+        }
+    };
+
+    this.removePiece = function(x, y) {
+        var piece = tiles[x][y];
+        tiles[x][y] = null;
+        if(piece) { 
+            pieces.pop(piece); 
+        }
+    };
 
     this.highlightPlayerRegion = function(playerIndex) {
         highlightRegion = (playerIndex == 0) ? PLAYER_1_REGION : PLAYER_2_REGION;
@@ -35,20 +74,8 @@ var Board = function() {
         highlightRegion = null;
     };
 
-    this.getPiece = function(x, y) {
-        return tiles[x][y];
-    };
-
-    this.setPiece = function(x, y, piece) {
-        tiles[x][y] = piece;
-
-        if(!pieces.includes(piece)) {
-            pieces.push(piece);
-        }
-    };
-
-    this.removePiece = function(x, y) {
-        tiles[x][y] = 0;
+    this.highlightContains = function(pos) {
+        return highlightRegion.contains(pos);
     };
 
     this.update = function() { 
