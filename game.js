@@ -12,11 +12,9 @@ var Game = function() {
     };
 
     var players = [ new Player(0, this), new Player(1, this) ];
-
-    var logic = new PlacementLogic(board, players);
+    var logic = new PlacementLogic(board, players, changeLogic);
 
     this.update = function() {
-        logic.update();
         board.update();
     };
 
@@ -27,5 +25,9 @@ var Game = function() {
         pieces.forEach(piece => {
             piece.draw(drawer);
         });
+    };
+
+    function changeLogic(newLogic) {
+        logic = newLogic;
     };
 };
