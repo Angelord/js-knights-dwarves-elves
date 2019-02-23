@@ -1,6 +1,6 @@
 
 var BOARD_SIZE = new Point(9, 7);
-var OFFSET = new Point(60, 60);
+var OFFSET = new Point(90, 90);
 var TILE_SIZE = new Point(50, 50);
 var TILE_SPACING = new Point(5, 5);
 

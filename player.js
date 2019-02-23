@@ -1,7 +1,7 @@
 
 
-var PLAYER_1_OFFSET = new Point(600, 100);
-var PLAYER_2_OFFSET = new Point(600, 300);
+var PLAYER_1_OFFSET = new Point(640, 100);
+var PLAYER_2_OFFSET = new Point(640, 300);
 var UNIT_OFFSET = new Point(60, 60);
 
 var Player = function(index, game) {
