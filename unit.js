@@ -40,6 +40,14 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
 
     this.isDead = function() { return curHealth <= 0; }
 
+    this.raycast = function(pos) {
+        if(!pos) { throw("ERROR : Missing argument for unit.Raycast()!"); }
+
+        var boundingRect = getBoundingRect();
+
+        return boundingRect.contains(pos);
+    }
+
     this.place = function(board, pos) {
         if(!board || !pos) { return; }
     
@@ -72,12 +80,21 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         if(!drawer) { return; }
 
         var rectToDraw = new Rect( 
-                worldPos.x - UNIT_SIZE.x / 2,
-                worldPos.y - UNIT_SIZE.y / 2,
+                worldPos.x,
+                worldPos.y,
                 UNIT_SIZE.x,
                 UNIT_SIZE.y
         ); 
         drawer.drawRect(rectToDraw, "#555555");
+    };
+
+    function getBoundingRect() {
+        return new Rect( 
+            worldPos.x,
+            worldPos.y,
+            UNIT_SIZE.x,
+            UNIT_SIZE.y
+        );
     };
 }
 
