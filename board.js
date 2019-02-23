@@ -7,8 +7,8 @@ var TILE_SPACING = new Point(5, 5);
 var PLAYER_1_REGION = new Rect(0, 0, BOARD_SIZE.x, 2);
 var PLAYER_2_REGION = new Rect(0, 5, BOARD_SIZE.x, 2);
 
-var COLOR_HIGHLIGHT = "#888888"; 
-var COLOR_DARKENED = "#444444";
+var COLOR_HIGHLIGHT = "#555555"; 
+var COLOR_DARKENED = "#771111";
 
 var Board = function() {
 

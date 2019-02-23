@@ -81,7 +81,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         if(!drawer) { return; }
 
         var rectToDraw = getBoundingRect();
-        drawer.drawRect(rectToDraw, "#555555");
+        drawer.drawRect(rectToDraw, "#888888");
     };
 
     function getBoundingRect() {

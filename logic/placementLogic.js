@@ -52,6 +52,8 @@ var PlacementLogic = function(board, players) {
 
             if(board.highlightContains(mousePos) && !board.getPiece(mousePos)) {
                 selectedUnit.place(board, mousePos);
+                curPlayer = (curPlayer == 1) ? 0 : 1;
+                board.highlightPlayerRegion(curPlayer);
             }
             else {
                 selectedUnit.setWorldPos(selectedUnitStartingPos);
