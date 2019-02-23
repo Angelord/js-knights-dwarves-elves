@@ -35,8 +35,6 @@ var Board = function() {
         transformed.x = Math.round(transformed.x);
         transformed.y = Math.round(transformed.y);
 
-        console.log(transformed);
-
         return transformed;
     };
 

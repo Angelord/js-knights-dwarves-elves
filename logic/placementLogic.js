@@ -67,7 +67,7 @@ var PlacementLogic = function(board, players) {
         if(!unit) { return; }
 
         if(selectedUnit) {
-            throw ("Attempting to select a unit when one is already selected");
+            deselect();
         }
 
         selectedUnit = unit;
