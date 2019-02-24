@@ -1,15 +1,19 @@
 
 var BOARD_SIZE = new Point(9, 7);
 var OFFSET = new Point(90, 90);
-var TILE_SIZE = new Point(50, 50);
-var TILE_SPACING = new Point(5, 5);
+var TILE_SIZE = new Point(52, 52);
+var TILE_SPACING = new Point(2, 2);
+var BORDER = 4;
 
 var REGION_PLAYER_1 = new Rect(0, 0, BOARD_SIZE.x, 2);
 var REGION_PLAYER_2 = new Rect(0, 5, BOARD_SIZE.x, 2);
 var REGION_BATTLEFIElD = new Rect(0, 2, BOARD_SIZE.x, 3);
 
-var COLOR_HIGHLIGHT = "#555555"; 
+var COLOR_BATTLEFIELD = "#555555";
+var COLOR_PLAYERS_LIGHT = "#666666";
+var COLOR_PLAYERS_DARK = "#888888"; 
 var COLOR_DARKENED = "#771111";
+var COLOR_BACKGROUND = "black";
 
 var Board = function() {
 
@@ -88,23 +92,49 @@ var Board = function() {
     };
 
     this.draw = function(drawer) { 
+        drawBackground(drawer);
+        drawTiles(drawer);
+    };
 
+    function drawBackground(drawer) {
+        var sz = BOARD_SIZE;
+        var width = sz.x * TILE_SIZE.x + (sz.x - 1) * TILE_SPACING.x + BORDER;
+        var height = sz.y * TILE_SIZE.y + (sz.y - 1) * TILE_SPACING.y + BORDER;
+        var bckgrRect = new Rect(OFFSET.x - TILE_SIZE.x / 2 - BORDER / 2, 
+                                OFFSET.y - TILE_SIZE.y / 2 - BORDER / 2, 
+                                width, 
+                                height);
+        drawer.drawRect(bckgrRect, COLOR_BACKGROUND);
+    };
+
+    function drawTiles(drawer) {
         for(var x = 0; x < BOARD_SIZE.x; x++) {
             for(var y = 0; y < BOARD_SIZE.y; y++) {
-                var pos = new Point(x, y);
-
-                var color = COLOR_HIGHLIGHT;
-                if(highlightRegion && !highlightRegion.contains(pos)) {
-                    color = COLOR_DARKENED;
-                }
-
-                var rect = new Rect(OFFSET.x + (TILE_SIZE.x + TILE_SPACING.x) * x - TILE_SIZE.x / 2,
-                                    OFFSET.y + (TILE_SIZE.y + TILE_SPACING.y) * y - TILE_SIZE.y / 2, 
-                                    TILE_SIZE.x, 
-                                    TILE_SIZE.y );
-
-                drawer.drawRect(rect, color);
+                drawTile(drawer, new Point(x, y));
             }
         }
+    };
+
+    function drawTile(drawer, pos) {
+        if(!pos) { throw("Missing argument!"); }
+
+        var color = null;
+
+        if(highlightRegion && !highlightRegion.contains(pos)) {
+            color = COLOR_DARKENED;
+        }
+        else if(REGION_BATTLEFIElD.contains(pos)) {
+            color = COLOR_BATTLEFIELD;
+        }
+        else {
+            color = (pos.x + pos.y * BOARD_SIZE.x) % 2 == 0 ? COLOR_PLAYERS_LIGHT : COLOR_PLAYERS_DARK;
+        }
+
+        var rect = new Rect(OFFSET.x + (TILE_SIZE.x + TILE_SPACING.x) * pos.x - TILE_SIZE.x / 2,
+                            OFFSET.y + (TILE_SIZE.y + TILE_SPACING.y) * pos.y - TILE_SIZE.y / 2, 
+                            TILE_SIZE.x, 
+                            TILE_SIZE.y );
+
+        drawer.drawRect(rect, color);
     };
 };
