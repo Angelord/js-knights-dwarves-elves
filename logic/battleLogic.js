@@ -16,13 +16,8 @@ var BattleLogic = function(board, players) {
 
         var battleRect = board.getBattlefieldRect();
 
-        var emptyTiles = [];
-        for(var x = battleRect.x; x < (battleRect.x + battleRect.w); x++) {
-            for(var y = battleRect.y; y < (battleRect.y + battleRect.h); y++) {
-                emptyTiles.push(new Point(x, y));
-            }
-        }
-
+        var emptyTiles = board.getEmptyPositions(battleRect);
+        
         var numObstacles = getRandomInt(MIN_OBSTACLES, MAX_OBSTACLES);
         console.log("Placing " + numObstacles + " obstacles.");
 
