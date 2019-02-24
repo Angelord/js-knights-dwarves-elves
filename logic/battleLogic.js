@@ -49,6 +49,8 @@ var BattleLogic = function(board, players) {
             selectedUnit.place(board, boardPos);
             board.clearHighlight();
 
+            endTurn();
+
             return true;
         }
         else {
@@ -58,6 +60,10 @@ var BattleLogic = function(board, players) {
         this.deselectUnit();
         return false; 
     }; 
+
+    function endTurn() {
+        curPlayer = (curPlayer == 1) ? 0 : 1;
+    };
 
     function placeObstacles() {
 
