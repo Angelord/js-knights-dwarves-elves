@@ -14,6 +14,10 @@ var Game = function() {
     var players = [ new Player(0, this), new Player(1, this) ];
     var logic = new PlacementLogic(board, players, changeLogic);
 
+    this.getLogic = function() {
+        return logic;
+    };
+
     this.update = function() {
         board.update();
     };

@@ -7,3 +7,29 @@ canvas {
     margin-right: auto;
     display: block;
 }
+
+#devControls {
+    padding: 0%;
+    margin-top: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#devControls input {
+    border: 1px solid black;
+    height: 60px;
+    width: 140px;
+    margin: auto;
+    display: inline-block;
+}
+
+#devControls input:hover {
+    background-color: lightgray;
+}
+
+#devControls input:focus {
+    background-color: gray;
+}
