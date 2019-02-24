@@ -53,7 +53,6 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         if(!pos) { throw("Missing argument!"); }
 
         var boundingRect = getBoundingRect();
-        console.log("Raycasting");
         return boundingRect.contains(pos);
     }
 
@@ -68,7 +67,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
             throw ("Attempting to place a game piece for a second time!");
     
         boardRef = board;
-        
+
         boardPos = pos;
         worldPos = boardRef.boardToWorldPos(boardPos);
         boardRef.setPiece(pos, this);

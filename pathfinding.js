@@ -9,22 +9,24 @@ pathfinding.getMovePositions = function(board, unit) {
 
     var openList = [ unit.getBoardPos() ];
 
-    for(var i = 0; i < movement; i++) {
-        
+    for(var i = 0; i <= movement; i++) {
         for(var j = openList.length - 1; j >= 0; j--) {
+
             var openListPos = openList[j];
 
             var neighbours = openListPos.getNeighbours();
-            for(var neighbour in neighbours) {
+
+            neighbours.forEach(neighbour => {
+
                 if(board.contains(neighbour)
                 && !movePositions.includes(neighbour) 
                 && !openList.includes(neighbour) 
                 && unit.canTraverse(neighbour)) {
                     openList.push(neighbour);
                 }
-            }
+            });
 
-            openList.splice(j);
+            openList.splice(j, 1);
             movePositions.push(openListPos);
         }
     };
