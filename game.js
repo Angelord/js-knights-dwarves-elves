@@ -11,11 +11,15 @@ var Game = function() {
     var players = [ new Player(0, this), new Player(1, this) ];
     this.getPlayers = function() { return players; }
     
-    var logic = new PlacementLogic(board, players, changeLogic);
-    logic.onEnter();
-    this.getLogic = function() { return logic; };
+    var logicStates = {
+        "placement" : new PlacementLogic(board, players, changeLogic),
+        "battle" : new BattleLogic(board, players, changeLogic)
+    };
+    var curLogic;
+    this.getLogic = function() { return curLogic; };
     
-    var controller = new HumanController(board, players, logic);
+    changeLogic("placement");
+    var controller = new HumanController(board, players, curLogic);
 
     
     this.update = function() { };
@@ -29,14 +33,22 @@ var Game = function() {
         });
     };
 
-    function changeLogic(newLogic) {
-        if(logic) { logic.onExit(); }
+    function changeLogic(logicName) {
+        if(!(logicName in logicStates)) { return; }
+        if(curLogic == logicStates[logicName]) { return; }
 
-        logic = newLogic;
-
-        if(newLogic) {
-            newLogic.onEnter();
+        if(curLogic) { 
+            curLogic.onExit(); 
         }
-        controller.setLogic(newLogic);
+
+        curLogic = logicStates[logicName];
+
+        if(curLogic) {
+            curLogic.onEnter();
+        }
+
+        if(controller) {
+            controller.setLogic(curLogic);
+        }
     };
 };

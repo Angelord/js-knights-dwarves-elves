@@ -79,7 +79,7 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
     };
 
     function startBattle() {
-        changeLogicCallback(new BattleLogic(board, players));
+        changeLogicCallback("battle");
         board.clearHighlight();
     };
 };
