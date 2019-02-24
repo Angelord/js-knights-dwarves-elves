@@ -5,6 +5,8 @@ var MAX_OBSTACLES = 5;
 var BattleLogic = function(board, players) {
 
     var curPlayer = 0;
+    var selectedUnit = null;
+    var selectedUnitMovements = null;
 
     this.toString = function() { return "battle"; }
 
@@ -15,8 +17,24 @@ var BattleLogic = function(board, players) {
 
     this.onExit = function() { }
     this.getCurPlayer = function() { return curPlayer; }
-    this.selectUnit = function(boardPos) { return false; }
-    this.placeUnit = function(boardPos) { return false; }  
+
+    this.selectUnit = function(unit) { 
+        if(players[curPlayer].owns(unit)) {
+
+            selectedUnit = unit;
+            selectedUnitMovements = pathfinding.getMovePositions(board, unit);
+
+            board.highlightPositions(selectedUnitMovements);
+
+            return true;
+        }
+
+        return false; 
+    };
+
+    this.placeUnit = function(boardPos) { 
+        return false; 
+    }  
 
     function placeObstacles() {
 

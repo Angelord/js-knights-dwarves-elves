@@ -24,6 +24,7 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
         var player = players[playerIndex];
         for(var i = 0; i < player.units.length; i++) {
             var unit = player.units[i];
+            if(unit.isPlaced()) { continue; }
             var posToPlace = emptyPositions[i];
             unit.place(board, posToPlace);
         }

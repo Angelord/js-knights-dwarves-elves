@@ -34,9 +34,10 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     var boardPos = null;
     var worldPos = new Point(0, 0);
 
+    this.getOwner = function() { return owner; }
     this.getWorldPos = function() { return worldPos; }
     this.setWorldPos = function(value) { if(value) { worldPos = value; } }
-
+    this.getBoardPos = function() { return boardPos; }
     this.getDamage = function() { return damage; }
     this.getArmor = function() { return armor; }
     this.getMovement = function() { return movement; } 
@@ -54,6 +55,10 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
 
         return boundingRect.contains(pos);
     }
+
+    this.canTraverse = function(pos) {
+        return (!board.getPiece(pos));
+    };
 
     this.place = function(board, pos) {
         if(!board || !pos) { return; }
@@ -80,9 +85,9 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     };
 
     this.update = function() {
-        if(isPlaced()) {
-            worldPos = getBoard().boardToWorldPos(getPos())
-        }
+        // if(isPlaced()) {
+            // worldPos = getBoard().boardToWorldPos(getPos())
+        // }
     };
 
     this.draw = function(drawer) {

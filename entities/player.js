@@ -29,4 +29,10 @@ var Player = function(index, game) {
             unit.setWorldPos(pos);
         }
     }
+
+    this.owns = function(unit) {
+        if(typeof unit == 'undefined') { throw("Missing argument!"); }
+
+        return (unit.getOwner == this);
+    }
 };
