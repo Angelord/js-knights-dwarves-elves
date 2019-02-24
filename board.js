@@ -37,6 +37,10 @@ var Board = function() {
         return REGION_BATTLEFIElD;
     };
 
+    this.getPlayerRect = function(playerIndex) {
+        return playerIndex == 1 ? REGION_PLAYER_2 : REGION_PLAYER_1; 
+    };
+
     //Transforms world coordinates to board coordinates
     this.worldToBoardPos = function(pos) {
         if(!pos) { throw("Missing argument!"); }
@@ -83,6 +87,23 @@ var Board = function() {
         if(piece) { 
             pieces.pop(piece); 
         }
+    };
+
+    this.getEmptyPositions = function(rect) {
+        //Check entire board if no rect specified
+        var rectRef = rect ? rect : new Rect(0, 0, BOARD_SIZE.x, BOARD_SIZE.y);
+
+        var emptyPositions = [];
+        for(var x = rectRef.x; x < (rectRef.x + rectRef.w); x++) {
+            for(var y = rectRef.y; y < (rectRef.y + rectRef.h); y++) {
+                var pos = new Point(x, y);
+                if(!this.getPiece(pos)) {
+                    emptyPositions.push(pos);
+                }
+            }
+        }
+
+        return emptyPositions;
     };
 
     this.highlightPlayerRegion = function(playerIndex) {

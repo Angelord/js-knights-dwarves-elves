@@ -27,7 +27,7 @@ var BattleLogic = function(board, players) {
         console.log("Placing " + numObstacles + " obstacles.");
 
         for(var i = 0; i < numObstacles; i++) {
-            var position = emptyTiles(getRandomInt(0, emptyTiles.length - 1));
+            var position = emptyTiles[getRandomInt(0, emptyTiles.length - 1)];
             boardRef.setPiece(position, "obstacle");
             emptyTiles.pop(position);
         };

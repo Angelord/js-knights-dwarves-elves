@@ -5,9 +5,6 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
 
     var MAX_SELECT_DIST = 15;
 
-    var boardRef = board;
-    var playersRef = players;
-
     var curPlayer = 0;
     board.highlightPlayerRegion(curPlayer);
 
@@ -15,6 +12,39 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
     var selectedUnit = null;
     var canvas = document.getElementById("canvas");
     addListeners();
+
+    this.placeAutomatically = function() {
+        placePlayerUnits(0);
+        placePlayerUnits(1);
+        startBattle();
+    };
+
+    function placePlayerUnits(playerIndex) {
+        if(typeof playerIndex == 'undefined') { throw("Missing argument!"); }
+
+        var playerRect = board.getPlayerRect(playerIndex);
+
+        var emptyPositions = board.getEmptyPositions(playerRect);
+
+        var player = players[playerIndex];
+        for(var i = 0; i < player.units.length; i++) {
+            var unit = player.units[i];
+            var posToPlace = emptyPositions[i];
+            unit.place(board, posToPlace);
+        }
+    };
+
+    function addListeners() {
+        canvas.addEventListener("mousemove", onMouseMove);
+        canvas.addEventListener("mousedown", onMouseDown);
+        canvas.addEventListener("mouseup", onMouseUp);
+    };
+
+    function removeListeners() {
+        canvas.removeEventListener("mousemove", onMouseMove);
+        canvas.removeEventListener("mousedown", onMouseDown);
+        canvas.removeEventListener("mouseup", onMouseUp);
+    };
 
     function onMouseMove(e) {
         if(selectedUnit) {
@@ -63,13 +93,17 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
         });
 
         if(unplacedUnits == 0) {
-            removeListeners();
-            changeLogicCallback(new BattleLogic(board, players));
-            board.clearHighlight();
+            startBattle();
         }
         else {
             board.highlightPlayerRegion(curPlayer);
         }
+    };
+
+    function startBattle() {
+        removeListeners();
+        changeLogicCallback(new BattleLogic(board, players));
+        board.clearHighlight();
     };
 
     function select(unit) {
@@ -86,18 +120,6 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
     function deselect() {
         selectedUnit = null;
         selectedUnitStartingPos = null;
-    };
-
-    function addListeners() {
-        canvas.addEventListener("mousemove", onMouseMove);
-        canvas.addEventListener("mousedown", onMouseDown);
-        canvas.addEventListener("mouseup", onMouseUp);
-    };
-
-    function removeListeners() {
-        canvas.removeEventListener("mousemove", onMouseMove);
-        canvas.removeEventListener("mousedown", onMouseDown);
-        canvas.removeEventListener("mouseup", onMouseUp);
     };
 };
 
