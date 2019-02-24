@@ -16,7 +16,8 @@ pathfinding.getMovePositions = function(board, unit) {
 
             var neighbours = openListPos.getNeighbours();
             for(var neighbour in neighbours) {
-                if(!movePositions.includes(neighbour) 
+                if(board.contains(neighbour)
+                && !movePositions.includes(neighbour) 
                 && !openList.includes(neighbour) 
                 && unit.canTraverse(neighbour)) {
                     openList.push(neighbour);

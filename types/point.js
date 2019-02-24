@@ -37,7 +37,7 @@ Point.prototype.getNeighbours = function() {
     neighbours.push(new Point(this.x - 1, this.y));
     neighbours.push(new Point(this.x + 1, this.y));
     neighbours.push(new Point(this.x, this.y - 1));
-    neighbours.push(new Point(this.y, this.y + 1));
+    neighbours.push(new Point(this.x, this.y + 1));
     return neighbours;
 };
 

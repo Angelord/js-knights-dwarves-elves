@@ -33,6 +33,6 @@ var Player = function(index, game) {
     this.owns = function(unit) {
         if(typeof unit == 'undefined') { throw("Missing argument!"); }
 
-        return (unit.getOwner == this);
+        return (unit.getOwner() == this);
     }
 };

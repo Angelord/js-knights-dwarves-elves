@@ -21,12 +21,14 @@ var Board = function() {
     var tiles = [];
     var pieces = [];
     var highlightRegion = null;
-    var highlightPositions = { };
+    var highlightPositions = [];
 
     for(var x = 0; x < BOARD_RECT.w; x++) {
         tiles.push([]);
+        highlightPositions.push([]);
         for(var y = 0; y < BOARD_RECT.h; y++) {
-            tiles[0].push(null);
+            tiles[x].push(null);
+            highlightPositions[x].push(null);
         }
     }
 
@@ -113,7 +115,7 @@ var Board = function() {
 
     this.highlightPositions = function(positions, color) {
         positions.forEach(pos => {
-            highlightPositions[pos] = color;
+            highlightPositions[pos.x][pos.y] = color;
         });
     };
 
@@ -124,7 +126,11 @@ var Board = function() {
 
     this.clearHighlight = function() {
         highlightRegion = null;
-        highlightPositions = { };
+        for(var x = 0; x < BOARD_RECT.w; x++) {
+            for(var y = 0; y < BOARD_RECT.h; y++) {
+                highlightPositions[x][y] = null;
+            }
+        }
     };
     
     this.update = function() { 
@@ -167,9 +173,13 @@ var Board = function() {
     }
 
     function drawPositionHighlights(drawer) {
-        
-        for (var pos in highlightPositions) {
-            drawTile(drawer, pos, highlightPositions[pos]);
+        for(var x = 0; x < BOARD_RECT.w; x++) {
+            for(var y = 0; y < BOARD_RECT.h; y++) {
+                var highlight = highlightPositions[x][y];
+                if(highlight != null) {
+                    drawTile(drawer, new Point(x, y), highlight);
+                }
+            }
         }
     }
 

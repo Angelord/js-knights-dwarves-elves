@@ -51,6 +51,10 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
         return false;
     };
 
+    this.deselectUnit = function() {
+        selectedUnit = null;
+    };
+
     this.placeUnit = function(pos) {
         var playerRegion = board.getPlayerRect(curPlayer);
 
@@ -59,7 +63,8 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
             endTurn();
             return true;
         }
-
+        
+        deselectUnit();
         return false;
     };
 
@@ -80,8 +85,8 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
     };
 
     function startBattle() {
-        changeLogicCallback("battle");
         board.clearHighlight();
+        changeLogicCallback("battle");
     };
 };
 

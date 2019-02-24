@@ -9,7 +9,10 @@ var HumanController = function(board, players, logic) {
 
     addListeners();
 
-    this.setLogic = function(value) { logicRef = value; }
+    this.setLogic = function(value) { 
+        deselect();
+        logicRef = value; 
+    }
 
     function addListeners() {
         var canvas = document.getElementById("canvas");
@@ -21,7 +24,7 @@ var HumanController = function(board, players, logic) {
     function onMouseDown(e) {
         var mousePos = new Point(e.offsetX, e.offsetY);
 
-        var curPlayerUnits = logic.getCurPlayer().units;
+        var curPlayerUnits = logicRef.getCurPlayer().units;
         for(var i = 0; i < curPlayerUnits.length; i++) {
             var unit = curPlayerUnits[i];
             if(unit.raycast(mousePos)) {
@@ -56,6 +59,7 @@ var HumanController = function(board, players, logic) {
         if(!unit) { return; }
 
         if(!logicRef.selectUnit(unit)) {
+            console.log("Failed to select");
             return;
         }
 

@@ -16,25 +16,30 @@ var BattleLogic = function(board, players) {
     }
 
     this.onExit = function() { }
-    this.getCurPlayer = function() { return curPlayer; }
+    this.getCurPlayer = function() { return players[curPlayer]; }
 
     this.selectUnit = function(unit) { 
         if(players[curPlayer].owns(unit)) {
 
             selectedUnit = unit;
             selectedUnitMovements = pathfinding.getMovePositions(board, unit);
-
-            board.highlightPositions(selectedUnitMovements);
-
+            board.highlightPositions(selectedUnitMovements, "#11115588");
             return true;
         }
 
         return false; 
     };
 
+    this.deselectUnit = function() {
+        selectedUnit = null;
+        selectedUnitMovements = null;
+        board.clearHighlight();
+    };
+
     this.placeUnit = function(boardPos) { 
+        this.deselectUnit();
         return false; 
-    }  
+    }; 
 
     function placeObstacles() {
 

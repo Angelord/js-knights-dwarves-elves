@@ -33,6 +33,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     var placed = false;
     var boardPos = null;
     var worldPos = new Point(0, 0);
+    var boardRef = null;
 
     this.getOwner = function() { return owner; }
     this.getWorldPos = function() { return worldPos; }
@@ -52,12 +53,12 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         if(!pos) { throw("Missing argument!"); }
 
         var boundingRect = getBoundingRect();
-
+        console.log("Raycasting");
         return boundingRect.contains(pos);
     }
 
     this.canTraverse = function(pos) {
-        return (!board.getPiece(pos));
+        return (!boardRef.getPiece(pos));
     };
 
     this.place = function(board, pos) {
@@ -66,10 +67,11 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         if(placed) 
             throw ("Attempting to place a game piece for a second time!");
     
-        this.board = board;
+        boardRef = board;
+        
         boardPos = pos;
-        worldPos = board.boardToWorldPos(boardPos);
-        board.setPiece(pos, this);
+        worldPos = boardRef.boardToWorldPos(boardPos);
+        boardRef.setPiece(pos, this);
         placed = true;
     };
 

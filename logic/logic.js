@@ -8,6 +8,7 @@ var Logic = function() {
     this.getCurPlayer = function() { return 0; }
     //Returns false if selection fails and true if it succeeds
     this.selectUnit = function(boardPos) { return false; }
+    this.deselectUnit = function() { }
     //Returns false if placement fails and true if it succeeds
     this.placeUnit = function(boardPos) { return false; }  
     // this.heal = function() { }

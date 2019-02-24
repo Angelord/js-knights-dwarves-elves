@@ -7,6 +7,10 @@ var Rect = function(x, y, w, h) {
     this.h = h;
 };
 
+Rect.prototype.toString = function() {
+    return "{ " + this.x + ", " + this.y + ", " + this.w + ", " + this.h + " }";
+};
+
 Rect.prototype.contains = function(pos) {
     if(!pos) { throw("Missing argument!"); }
     
