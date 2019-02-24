@@ -113,11 +113,7 @@ var Board = function() {
     this.clearHighlight = function() {
         highlightRegion = null;
     };
-
-    this.highlightContains = function(pos) {
-        return highlightRegion.contains(pos);
-    };
-
+    
     this.update = function() { 
     };
 
