@@ -1,16 +1,22 @@
 
-
 var MIN_OBSTACLES = 1;
 var MAX_OBSTACLES = 5;
 
 var BattleLogic = function(board, players) {
 
-    console.log("Entering battle");
+    var curPlayer = 0;
 
-    var boardRef = board;
-    var playersRef = players;
+    this.toString = function() { return "battle"; }
 
-    placeObstacles();
+    this.onEnter = function() { 
+        console.log("Entering battle");
+        placeObstacles();
+    }
+
+    this.onExit = function() { }
+    this.getCurPlayer = function() { return curPlayer; }
+    this.selectUnit = function(boardPos) { return false; }
+    this.placeUnit = function(boardPos) { return false; }  
 
     function placeObstacles() {
 
@@ -23,7 +29,7 @@ var BattleLogic = function(board, players) {
 
         for(var i = 0; i < numObstacles; i++) {
             var position = emptyTiles[getRandomInt(0, emptyTiles.length - 1)];
-            boardRef.setPiece(position, "obstacle");
+            board.setPiece(position, "obstacle");
             emptyTiles.pop(position);
         };
     };

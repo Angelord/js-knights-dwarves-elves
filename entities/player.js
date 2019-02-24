@@ -7,6 +7,8 @@ var UNIT_OFFSET = new Point(60, 60);
 var Player = function(index, game) {
 
     var indexRef = index ? index : 0;
+    this.getIndex = function() { return indexRef; }
+
     var offset = index == 0 ? PLAYER_1_OFFSET : PLAYER_2_OFFSET;
 
     this.units = [

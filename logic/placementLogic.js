@@ -3,13 +3,10 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
 
     if(!board || !players || !changeLogicCallback) { throw("Missing argument(s)!");  }
 
-    var curPlayer = 0;
-    board.highlightPlayerRegion(curPlayer);
-
-    var selectedUnitStartingPos = null;
     var selectedUnit = null;
-    var canvas = document.getElementById("canvas");
-    addListeners();
+    var curPlayer = 0;
+
+    this.toString = function() { return "placement"; }
 
     this.placeAutomatically = function() {
         placePlayerUnits(0);
@@ -32,56 +29,37 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
         }
     };
 
-    function addListeners() {
-        canvas.addEventListener("mousemove", onMouseMove);
-        canvas.addEventListener("mousedown", onMouseDown);
-        canvas.addEventListener("mouseup", onMouseUp);
+    this.onEnter = function() {
+        board.highlightPlayerRegion(curPlayer);
     };
 
-    function removeListeners() {
-        canvas.removeEventListener("mousemove", onMouseMove);
-        canvas.removeEventListener("mousedown", onMouseDown);
-        canvas.removeEventListener("mouseup", onMouseUp);
+    this.onExit = function() {
+
     };
 
-    function onMouseMove(e) {
-        if(selectedUnit) {
-            var mousePos = new Point(e.offsetX, e.offsetY);
-            selectedUnit.setWorldPos(mousePos);
+    this.getCurPlayer = function() {
+        return players[curPlayer];
+    };
+
+    this.selectUnit = function(unit) {
+        if(!unit.isPlaced()) {
+            selectedUnit = unit;
+            return true;
         }
+
+        return false;
     };
 
-    function onMouseDown(e) {
-        var mousePos = new Point(e.offsetX, e.offsetY);
+    this.placeUnit = function(pos) {
+        var playerRegion = board.getPlayerRect(curPlayer);
 
-        var curPlayerUnits = players[curPlayer].units;
-        for(var i = 0; i < curPlayerUnits.length; i++) {
-            var unit = curPlayerUnits[i];
-            if(!unit.isPlaced() && unit.raycast(mousePos)) {
-                select(unit);
-                break;
-            }
+        if(playerRegion.contains(pos) && !board.getPiece(pos)) {
+            selectedUnit.place(board, pos);
+            endTurn();
+            return true;
         }
-    };
 
-    function onMouseUp(e) {
-        if(selectedUnit) {
-
-            var mousePos = new Point(e.offsetX, e.offsetY);
-            mousePos = board.worldToBoardPos(mousePos);
-
-            var playerRegion = board.getPlayerRect(curPlayer);
-
-            if(playerRegion.contains(mousePos) && !board.getPiece(mousePos)) {
-                selectedUnit.place(board, mousePos);
-                endTurn();
-            }
-            else {
-                selectedUnit.setWorldPos(selectedUnitStartingPos);
-            }
-
-            deselect();
-        }
+        return false;
     };
 
     function endTurn() {
@@ -101,25 +79,8 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
     };
 
     function startBattle() {
-        removeListeners();
         changeLogicCallback(new BattleLogic(board, players));
         board.clearHighlight();
-    };
-
-    function select(unit) {
-        if(!unit) { return; }
-
-        if(selectedUnit) {
-            deselect();
-        }
-
-        selectedUnit = unit;
-        selectedUnitStartingPos = unit.getWorldPos();
-    };
-
-    function deselect() {
-        selectedUnit = null;
-        selectedUnitStartingPos = null;
     };
 };
 
