@@ -27,11 +27,6 @@ var createDwarf = function(owner) {
 
 var Unit = function(owner, damage, armor, health, attRange, movement) {
 
-    this.damage = damage;
-    this.armor = armor;
-    this.health = health;
-    this.attRange = attRange;
-    this.movement = movement;
     this.color = "#888888";
 
     var curHealth = health;
@@ -42,6 +37,10 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     this.getWorldPos = function() { return worldPos; }
     this.setWorldPos = function(value) { if(value) { worldPos = value; } }
 
+    this.getDamage = function() { return damage; }
+    this.getArmor = function() { return armor; }
+    this.getMovement = function() { return movement; } 
+    this.getAttRange = function() { return attRange; }
     this.getHealth = function() { return curHealth; }
     this.getMaxHealth = function() { return this.health; }  
 
