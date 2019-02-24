@@ -14,6 +14,7 @@ var COLOR_PLAYERS_LIGHT = "#666666";
 var COLOR_PLAYERS_DARK = "#888888"; 
 var COLOR_DARKENED = "#771111";
 var COLOR_BACKGROUND = "black";
+var COLOR_OBSTACLE = "black";
 
 var Board = function() {
 
@@ -28,7 +29,15 @@ var Board = function() {
         }
     }
 
-    //Transforms mouse coordinates to board coordinates
+    this.getSize = function() {
+        return BOARD_SIZE;
+    };
+
+    this.getBattlefieldRect = function() {
+        return REGION_BATTLEFIElD;
+    };
+
+    //Transforms world coordinates to board coordinates
     this.worldToBoardPos = function(pos) {
         if(!pos) { throw("Missing argument!"); }
 
@@ -122,6 +131,9 @@ var Board = function() {
 
         if(highlightRegion && !highlightRegion.contains(pos)) {
             color = COLOR_DARKENED;
+        }
+        else if(tiles[pos.x][pos.y] == "obstacle") {
+            color = COLOR_OBSTACLE;
         }
         else if(REGION_BATTLEFIElD.contains(pos)) {
             color = COLOR_BATTLEFIELD;
