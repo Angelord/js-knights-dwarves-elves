@@ -3,8 +3,6 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
 
     if(!board || !players || !changeLogicCallback) { throw("Missing argument(s)!");  }
 
-    var MAX_SELECT_DIST = 15;
-
     var curPlayer = 0;
     board.highlightPlayerRegion(curPlayer);
 
