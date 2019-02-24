@@ -88,9 +88,9 @@ var Board = function() {
         }
     };
 
-    this.removePiece = function(x, y) {
-        var piece = tiles[x][y];
-        tiles[x][y] = null;
+    this.removePiece = function(pos) {
+        var piece = tiles[pos.x][pos.y];
+        tiles[pos.x][pos.y] = null;
         if(piece) { 
             CollectionUtil.removeSpecific(pieces, piece);
         }

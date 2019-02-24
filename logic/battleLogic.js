@@ -36,7 +36,25 @@ var BattleLogic = function(board, players) {
         board.clearHighlight();
     };
 
-    this.placeUnit = function(boardPos) { 
+    this.placeUnit = function(boardPos) {
+        if(!selectedUnit) { return false; }
+
+        var posIsValid = selectedUnitMovements.some(
+            movePos => { return movePos.equals(boardPos); }
+        );
+        
+        if(posIsValid) {
+
+            selectedUnit.remove();
+            selectedUnit.place(board, boardPos);
+            board.clearHighlight();
+
+            return true;
+        }
+        else {
+            console.log("Invalid placement " + boardPos);
+        }
+
         this.deselectUnit();
         return false; 
     }; 

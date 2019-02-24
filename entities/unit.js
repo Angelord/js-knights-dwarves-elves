@@ -31,8 +31,8 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
 
     var curHealth = health;
     var placed = false;
-    var boardPos = null;
     var worldPos = new Point(0, 0);
+    var boardPos = null;
     var boardRef = null;
 
     this.getOwner = function() { return owner; }
@@ -72,6 +72,15 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         worldPos = boardRef.boardToWorldPos(boardPos);
         boardRef.setPiece(pos, this);
         placed = true;
+    };
+
+    this.remove = function() {
+        if(!placed)
+            throw("Attempting to remove a game piece that has not been placed on the board!");
+        boardRef.removePiece(boardPos);
+        boardRef = null;
+        boardPos = null;
+        placed = false;
     };
 
     this.attack = function(otherUnit) {
