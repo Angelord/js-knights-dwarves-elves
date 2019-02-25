@@ -2,6 +2,9 @@
 
 var PLAYER_1_OFFSET = new Point(640, 100);
 var PLAYER_2_OFFSET = new Point(640, 300);
+var PLAYER_1_COLOR = "#5555AA";
+var PLAYER_2_COLOR = "#55AA55";
+
 var UNIT_OFFSET = new Point(60, 60);
 
 var Player = function(index, game) {
@@ -35,4 +38,8 @@ var Player = function(index, game) {
 
         return (unit.getOwner() == this);
     }
+
+    this.getColor = function() {
+        return indexRef == 0 ? PLAYER_1_COLOR : PLAYER_2_COLOR;
+    };
 };
