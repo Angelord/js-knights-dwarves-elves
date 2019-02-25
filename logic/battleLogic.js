@@ -30,7 +30,16 @@ var BattleLogic = function(board, players) {
                 unit.canTraverse,
                 unit.canStandOn);
 
+            selectedUnitAttacks = pathfinding.getArea(
+                board, 
+                unit.getBoardPos(), 
+                unit.getAttRange(),
+                unit.canAttackThrough,
+                unit.canAttackTarget);
+    
+
             board.highlightPositions(selectedUnitMovements, "#11115588");
+            board.highlightPositions(selectedUnitAttacks, "#55111188");
 
             return true;
         }

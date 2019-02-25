@@ -37,7 +37,6 @@ pathfinding.getArea = function(board, startingPos, range, canTraverseCall, addTo
 
     for(var i = area.length - 1; i >= 0; i--) {
         if(!addToResCall(area[i])) {
-            console.log("removing");
             area.splice(i, 1);
         }
     }

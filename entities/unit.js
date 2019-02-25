@@ -13,6 +13,10 @@ var createElf = function(owner) {
     var elf = new Unit(owner, 5, 1, 10, 3, 3);
     elf.toString = function() { return "elf"; }
 
+    elf.canAttackThrough = function(pos) {
+        return true;
+    };
+
     return elf;
 }
 
@@ -43,6 +47,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     this.getAttRange = function() { return attRange; }
     this.getHealth = function() { return curHealth; }
     this.getMaxHealth = function() { return this.health; }  
+    this.getBoard = function() { return boardRef; }
 
     this.isDead = function() { return curHealth <= 0; }
     this.isPlaced = function() { return placed; }
@@ -53,6 +58,20 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         var boundingRect = getBoundingRect();
         return boundingRect.contains(pos);
     }
+
+    this.canAttackThrough = function(pos) {
+        return  boardRef.getPiece(pos) != "obstacle";
+    };
+
+    this.canAttackTarget = function(pos) {
+        var piece = boardRef.getPiece(pos);
+        if(piece == null) { return false; }
+        if(piece != "obstacle" && owner.owns(piece)) { return false; }
+        
+        var dist = pos.distance(boardPos);
+
+        return dist == attRange; 
+    };
 
     this.canTraverse = function(pos) {
         return (!boardRef.getPiece(pos));
@@ -85,8 +104,17 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         placed = false;
     };
 
-    this.attack = function(otherUnit) {
-        otherUnit.takeDamage(this.damage);
+    this.attack = function(pos) {
+        var other = boardRef.getPiece(pos);
+        if(other == "obstacle") {
+            boardRef.removePiece(pos)
+        }
+        else if(other != null) {
+            otherUnit.takeDamage(this.damage);
+        }
+        else {
+            throw ("Attacking an invalid pos " + pos);
+        }
     };
 
     this.takeDamage = function(amount) {
