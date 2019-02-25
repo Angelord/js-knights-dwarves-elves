@@ -1,15 +1,17 @@
 
 var pathfinding = { };
 
-pathfinding.getMovePositions = function(board, unit) {
+pathfinding.getArea = function(board, startingPos, range, canTraverseCall, addToResCall) {
 
-    var movePositions = [];
+    if(!board || !startingPos || !range || !canTraverseCall || !addToResCall) {
+        throw ("Missing argument(s)!");
+    }
 
-    var movement = unit.getMovement();
+    var area = [];
 
-    var openList = [ unit.getBoardPos() ];
+    var openList = [ startingPos ];
 
-    for(var i = 0; i <= movement; i++) {
+    for(var i = 0; i <= range; i++) {
         for(var j = openList.length - 1; j >= 0; j--) {
 
             var openListPos = openList[j];
@@ -19,18 +21,26 @@ pathfinding.getMovePositions = function(board, unit) {
             neighbours.forEach(neighbour => {
 
                 if(board.contains(neighbour)
-                && !movePositions.includes(neighbour) 
+                && !area.includes(neighbour) 
                 && !openList.includes(neighbour) 
-                && unit.canTraverse(neighbour)) {
+                && canTraverseCall(neighbour)) {
+
                     openList.push(neighbour);
                 }
             });
 
             openList.splice(j, 1);
-            movePositions.push(openListPos);
+
+            area.push(openListPos);
         }
     };
 
-    return movePositions;
-};
+    for(var i = area.length - 1; i >= 0; i--) {
+        if(!addToResCall(area[i])) {
+            console.log("removing");
+            area.splice(i, 1);
+        }
+    }
 
+    return area;
+} 

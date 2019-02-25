@@ -7,6 +7,7 @@ var BattleLogic = function(board, players) {
     var curPlayer = 0;
     var selectedUnit = null;
     var selectedUnitMovements = null;
+    var selectedUnitAttacks = null;
 
     this.toString = function() { return "battle"; }
 
@@ -22,8 +23,15 @@ var BattleLogic = function(board, players) {
         if(players[curPlayer].owns(unit)) {
 
             selectedUnit = unit;
-            selectedUnitMovements = pathfinding.getMovePositions(board, unit);
+            selectedUnitMovements = pathfinding.getArea(
+                board, 
+                unit.getBoardPos(), 
+                unit.getMovement(),
+                unit.canTraverse,
+                unit.canStandOn);
+
             board.highlightPositions(selectedUnitMovements, "#11115588");
+
             return true;
         }
 

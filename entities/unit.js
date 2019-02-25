@@ -58,6 +58,10 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         return (!boardRef.getPiece(pos));
     };
 
+    this.canStandOn = function(pos) {
+        return (!boardRef.getPiece(pos));
+    };
+
     this.place = function(board, pos) {
         if(!board || !pos) { return; }
     
