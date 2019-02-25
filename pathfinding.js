@@ -15,6 +15,13 @@ pathfinding.getArea = function(board, startingPos, range, canTraverseCall, addTo
         for(var j = openList.length - 1; j >= 0; j--) {
 
             var openListPos = openList[j];
+            
+            openList.splice(j, 1);
+            area.push(openListPos);
+            
+            if(!canTraverseCall(openListPos) && openListPos != startingPos) {
+                continue;
+            }
 
             var neighbours = openListPos.getNeighbours();
 
@@ -23,15 +30,13 @@ pathfinding.getArea = function(board, startingPos, range, canTraverseCall, addTo
                 if(board.contains(neighbour)
                 && !area.includes(neighbour) 
                 && !openList.includes(neighbour) 
-                && canTraverseCall(neighbour)) {
+                && (canTraverseCall(neighbour) || addToResCall(neighbour))) {
 
                     openList.push(neighbour);
                 }
             });
 
-            openList.splice(j, 1);
 
-            area.push(openListPos);
         }
     };
 
@@ -42,4 +47,4 @@ pathfinding.getArea = function(board, startingPos, range, canTraverseCall, addTo
     }
 
     return area;
-} 
+}
