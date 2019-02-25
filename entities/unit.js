@@ -123,14 +123,27 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         console.log("Dead");    
     };
 
-    this.takeDamage = function(amount) {
-        // dice.roll(3);
+    this.takeDamage = function(amount, attacker) {
+        
+        var diceResult = dice.roll(3);
 
-        var finalAmount = amount - armor;
+        if(diceResult == curHealth) {
+            console.log("Attack failed");
+            return;
+        }
+
+        var amountRef = amount;
+
+        if(diceResult == 3) {
+            console.log("Half damage");
+            amountRef /= 2;
+        }
+
+        var finalAmount = amountRef - armor;
+
         if(finalAmount <= 0) { return; }
 
         curHealth -= finalAmount;
-        
         if(curHealth <= 0) {
             die();
         }
