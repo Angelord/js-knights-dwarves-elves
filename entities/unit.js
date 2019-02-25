@@ -117,14 +117,20 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         }
     };
 
+    this.die = function() {
+        this.remove();
+        CollectionUtil.removeSpecific(this.getOwner().units, this);
+        console.log("Dead");    
+    };
+
     this.takeDamage = function(amount) {
         var finalAmount = amount - armor;
         if(finalAmount <= 0) { return; }
 
         curHealth -= finalAmount;
+        
         if(curHealth <= 0) {
-            console.log("Dead");
-            // die();
+            die();
         }
     };
 
@@ -143,7 +149,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         drawer.drawText(this.toString(), "18px Arial", worldPos, "black");
         drawer.drawText(curHealth, "12px Arial", worldPos.add(HEALTH_OFFSET) , "black");
     };
-
+    
     function getBoundingRect() {
         return new Rect( 
             worldPos.x - UNIT_SIZE.x / 2,

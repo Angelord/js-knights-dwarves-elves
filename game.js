@@ -5,9 +5,6 @@ var Game = function() {
     var board = new Board();
     this.getBoard = function() { return board; } 
 
-    var pieces = [];
-    this.addPiece = function(piece) { pieces.push(piece); }
-
     var players = [ new Player(0, this), new Player(1, this) ];
     this.getPlayers = function() { return players; }
     
@@ -28,8 +25,10 @@ var Game = function() {
 
         board.draw(drawer);
 
-        pieces.forEach(piece => {
-            piece.draw(drawer);
+        players.forEach(player => {
+            player.units.forEach(unit => {
+                unit.draw(drawer);
+            }); 
         });
     };
 

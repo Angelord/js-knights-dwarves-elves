@@ -12,5 +12,8 @@ CollectionUtil.removeSpecific = function(array, value) {
 
     if(index > -1) {
         array.splice(index, 1);
+        return true;
     }
+
+    return false;
 };

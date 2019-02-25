@@ -20,10 +20,6 @@ var Player = function(index, game) {
         createDwarf(this), createDwarf(this)
     ];
 
-    this.units.forEach(unit => {
-        game.addPiece(unit); 
-    });
-
     for(var x = 0; x < 2; x++) {
         for(var y = 0; y < 3; y++) {
             var unit = this.units[y * 2 + x];
