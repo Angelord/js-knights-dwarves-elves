@@ -20,6 +20,10 @@ Point.prototype.sub = function(other) {
     return new Point(this.x - other.x, this.y - other.y);
 };
 
+Point.prototype.multiply = function(number) {
+    return new Point(this.x * number, this.y * number);
+};
+
 Point.prototype.distance = function(other) {
     return this.sub(other).magnitude();
 };

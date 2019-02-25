@@ -124,6 +124,8 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     };
 
     this.takeDamage = function(amount) {
+        // dice.roll(3);
+
         var finalAmount = amount - armor;
         if(finalAmount <= 0) { return; }
 

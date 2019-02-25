@@ -5,7 +5,7 @@ var Drawer = function(canvas) {
     var context = canvas.getContext('2d');
 
     this.drawRect = function(rect, color) {
-        if(!rect) { return; }
+        if(!rect) { throw("Missing argument!"); }
 
         var colorRef = color ? color : "#CCCCCC";
 

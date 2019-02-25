@@ -30,6 +30,8 @@ var Game = function() {
                 unit.draw(drawer);
             }); 
         });
+
+        dice.draw(drawer);
     };
 
     function changeLogic(logicName) {
