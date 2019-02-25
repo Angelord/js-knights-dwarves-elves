@@ -146,7 +146,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         attacker.getOwner().addScore(finalAmount);
         curHealth -= finalAmount;
         if(curHealth <= 0) {
-            die();
+            this.die();
         }
     };
 
