@@ -110,7 +110,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
             boardRef.removePiece(pos)
         }
         else if(otherPiece != null) {
-            otherPiece.takeDamage(damage);
+            otherPiece.takeDamage(damage, this);
         }
         else {
             throw ("Attacking an invalid pos " + pos);
@@ -124,7 +124,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     };
 
     this.takeDamage = function(amount, attacker) {
-        
+
         var diceResult = dice.roll(3);
 
         if(diceResult == curHealth) {
@@ -143,6 +143,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
 
         if(finalAmount <= 0) { return; }
 
+        attacker.getOwner().addScore(finalAmount);
         curHealth -= finalAmount;
         if(curHealth <= 0) {
             die();

@@ -26,6 +26,8 @@ var Game = function() {
         board.draw(drawer);
 
         players.forEach(player => {
+            player.draw(drawer);
+
             player.units.forEach(unit => {
                 unit.draw(drawer);
             }); 

@@ -1,19 +1,23 @@
 
 
-var PLAYER_1_OFFSET = new Point(640, 100);
-var PLAYER_2_OFFSET = new Point(640, 300);
+var PLAYER_1_OFFSET = new Point(640, 90);
+var PLAYER_2_OFFSET = new Point(640, 305);
 var PLAYER_1_COLOR = "#5555AA";
 var PLAYER_2_COLOR = "#55AA55";
+var OFFSET_SCORE = new Point(0, 60);
 
 var UNIT_OFFSET = new Point(60, 60);
 
 var Player = function(index, game) {
 
+    var score = 0;
+
     var indexRef = index ? index : 0;
     this.getIndex = function() { return indexRef; }
 
     var offset = index == 0 ? PLAYER_1_OFFSET : PLAYER_2_OFFSET;
-
+    var color = index == 0 ? PLAYER_1_COLOR : PLAYER_2_COLOR;
+    
     this.units = [
         createKnight(this), createKnight(this),
         createElf(this), createElf(this),
@@ -36,6 +40,18 @@ var Player = function(index, game) {
     }
 
     this.getColor = function() {
-        return indexRef == 0 ? PLAYER_1_COLOR : PLAYER_2_COLOR;
+        return color;
     };
+
+    this.addScore = function(amount) { 
+        score += amount; 
+    };
+
+    this.draw = function(drawer) {
+        if(!drawer) { throw("Missing argument!"); }
+
+        if(game.getLogic().toString() == "battle") { 
+            drawer.drawText("Score : " + score, "22px Arial", offset.add(OFFSET_SCORE), color );
+        }
+    }
 };
