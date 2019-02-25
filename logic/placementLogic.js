@@ -42,29 +42,31 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
         return players[curPlayer];
     };
 
-    this.selectUnit = function(unit) {
-        if(!unit.isPlaced()) {
-            selectedUnit = unit;
-            return true;
-        }
-
-        return false;
+    this.select = function(gamePiece) {
+        if(!gamePiece) { return false; }
+        if(!players[curPlayer].owns(gamePiece)) { return false; }
+        if(gamePiece.isPlaced()) { return false; }
+        if(gamePiece.type != "unit") { return false; }
+        
+        selectedUnit = gamePiece;
+        return true;
     };
 
-    this.deselectUnit = function() {
+    this.deselect = function() {
         selectedUnit = null;
     };
 
-    this.placeUnit = function(pos) {
+    this.place = function(boardPos) {
+
         var playerRegion = board.getPlayerRect(curPlayer);
 
-        if(playerRegion.contains(pos) && !board.getPiece(pos)) {
-            selectedUnit.place(board, pos);
+        if(playerRegion.contains(boardPos) && !board.getPiece(boardPos)) {
+            selectedUnit.place(board, boardPos);
             endTurn();
             return true;
         }
         
-        deselectUnit();
+        deselect();
         return false;
     };
 

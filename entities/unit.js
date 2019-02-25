@@ -37,6 +37,8 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     var boardPos = null;
     var boardRef = null;
 
+    this.type = "unit";
+
     this.getOwner = function() { return owner; }
     this.getWorldPos = function() { return worldPos; }
     this.setWorldPos = function(value) { if(value) { worldPos = value; } }

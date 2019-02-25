@@ -5,7 +5,7 @@ var MAX_OBSTACLES = 5;
 var BattleLogic = function(board, players) {
 
     var curPlayer = 0;
-    var selectedUnit = null;
+    var selectedPiece = null;
     var selectedUnitMovements = null;
     var selectedUnitAttacks = null;
 
@@ -19,42 +19,65 @@ var BattleLogic = function(board, players) {
     this.onExit = function() { }
     this.getCurPlayer = function() { return players[curPlayer]; }
 
-    this.selectUnit = function(unit) { 
-        if(players[curPlayer].owns(unit)) {
+    this.select = function(gamePiece) { 
+        if(!players[curPlayer].owns(gamePiece)) {
+            return false;
+        }
 
-            selectedUnit = unit;
+        if(gamePiece.type == "unit") {
+            
+            selectedPiece = gamePiece;
             selectedUnitMovements = pathfinding.getArea(
                 board, 
-                unit.getBoardPos(), 
-                unit.getMovement(),
-                unit.canTraverse,
-                unit.canStandOn);
+                gamePiece.getBoardPos(), 
+                gamePiece.getMovement(),
+                gamePiece.canTraverse,
+                gamePiece.canStandOn);
 
             selectedUnitAttacks = pathfinding.getArea(
                 board, 
-                unit.getBoardPos(), 
-                unit.getAttRange(),
-                unit.canAttackThrough,
-                unit.canAttackTarget);
-    
+                gamePiece.getBoardPos(), 
+                gamePiece.getAttRange(),
+                gamePiece.canAttackThrough,
+                gamePiece.canAttackTarget);
+
 
             board.highlightPositions(selectedUnitMovements, "#11115588");
             board.highlightPositions(selectedUnitAttacks, "#55111188");
 
-            return true;
+            return true; 
+        }
+        else if(gamePiece.type == "potion") {
+            return false;
         }
 
-        return false; 
+        return false;
     };
 
-    this.deselectUnit = function() {
-        selectedUnit = null;
+    this.deselect = function() {
+        selectedPiece = null;
         selectedUnitMovements = null;
+        selectedUnitAttacks = null;
         board.clearHighlight();
     };
 
-    this.placeUnit = function(boardPos) {
-        if(!selectedUnit) { return false; }
+    this.place = function(boardPos) {
+        if(!selectedPiece) { return false; }
+
+        if(selectedPiece.type == "unit") {
+            return placeUnit(boardPos);
+        }
+        else if(selectedPiece.type == "potion") {
+            return placePotion(boardPos);
+        }
+
+        this.deselect();
+
+        console.log("Invalid placement " + boardPos);
+        return false; 
+    }; 
+
+    function placeUnit(boardPos) {
 
         if(tryMove(boardPos)) {
             return true;
@@ -62,12 +85,11 @@ var BattleLogic = function(board, players) {
         else if(tryAttack(boardPos)) {
             return false;
         }
+    };
 
-        this.deselectUnit();
-
-        console.log("Invalid placement " + boardPos);
-        return false; 
-    }; 
+    function placePotion(boardPos) {
+        return false;
+    };
 
     function tryMove(boardPos) {
 
@@ -77,8 +99,8 @@ var BattleLogic = function(board, players) {
         
         if(posIsValid) {
 
-            selectedUnit.remove();
-            selectedUnit.place(board, boardPos);
+            selectedPiece.remove();
+            selectedPiece.place(board, boardPos);
 
             endTurn();
 
@@ -95,7 +117,7 @@ var BattleLogic = function(board, players) {
 
         if(posIsValid) {
 
-            selectedUnit.attack(boardPos);
+            selectedPiece.attack(boardPos);
 
             endTurn();
 

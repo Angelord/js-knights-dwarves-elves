@@ -4,10 +4,18 @@ var HumanController = function(board, players, logic) {
 
     var logicRef = logic;
 
-    var selectedUnit = null;
-    var selectedUnitStartingPos = null;
+    var raycastTargets = [];
+
+    var selectedPiece = null;
+    var selectedPieceStartingPos = null;
 
     addListeners();
+
+    players.forEach(player => {
+        player.units.forEach(unit => {
+            raycastTargets.push(unit);
+        });
+    });
 
     this.setLogic = function(value) { 
         deselect();
@@ -24,55 +32,54 @@ var HumanController = function(board, players, logic) {
     function onMouseDown(e) {
         var mousePos = new Point(e.offsetX, e.offsetY);
 
-        var curPlayerUnits = logicRef.getCurPlayer().units;
-        for(var i = 0; i < curPlayerUnits.length; i++) {
-            var unit = curPlayerUnits[i];
-            if(unit.raycast(mousePos)) {
-                select(unit);
-                break;
-            }
-        }
+        raycastTargets.forEach(target => {
+            if(target.raycast && target.raycast(mousePos) && select(target)) {
+                return;
+            };
+        });
     };
 
     function onMouseMove(e) {
-        if(selectedUnit) {
+        if(selectedPiece) {
             var mousePos = new Point(e.offsetX, e.offsetY);
-            selectedUnit.setWorldPos(mousePos);
+            selectedPiece.setWorldPos(mousePos);
         }
     };
 
     function onMouseUp(e) {
-        if(selectedUnit) {
+        if(selectedPiece) {
 
             var mousePos = new Point(e.offsetX, e.offsetY);
             mousePos = board.worldToBoardPos(mousePos);
 
-            if(!logicRef.placeUnit(mousePos)) {
-                selectedUnit.setWorldPos(selectedUnitStartingPos);
+            if(!logicRef.place(mousePos)) {
+                selectedPiece.setWorldPos(selectedPieceStartingPos);
             }
 
             deselect();
         }
     };
 
-    function select(unit) {
-        if(!unit) { return; }
+    function select(newObject) {
+        if(!newObject) { return false; }
 
-        if(!logicRef.selectUnit(unit)) {
+        if(!logicRef.select(newObject)) {
             console.log("Failed to select");
-            return;
+            return false;
         }
 
-        if(selectedUnit) {
+        if(selectedPiece) {
             deselect();
         }
 
-        selectedUnit = unit;
-        selectedUnitStartingPos = unit.getWorldPos();
+        selectedPiece = newObject;
+        selectedPieceStartingPos = newObject.getWorldPos();
+
+        return true;
     };
 
     function deselect() {
-        selectedUnit = null;
-        selectedUnitStartingPos = null;
+        selectedPiece = null;
+        selectedPieceStartingPos = null;
     };
 }
