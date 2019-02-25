@@ -105,12 +105,12 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     };
 
     this.attack = function(pos) {
-        var other = boardRef.getPiece(pos);
-        if(other == "obstacle") {
+        var otherPiece = boardRef.getPiece(pos);
+        if(otherPiece == "obstacle") {
             boardRef.removePiece(pos)
         }
-        else if(other != null) {
-            otherUnit.takeDamage(this.damage);
+        else if(otherPiece != null) {
+            otherPiece.takeDamage(damage);
         }
         else {
             throw ("Attacking an invalid pos " + pos);

@@ -56,6 +56,21 @@ var BattleLogic = function(board, players) {
     this.placeUnit = function(boardPos) {
         if(!selectedUnit) { return false; }
 
+        if(tryMove(boardPos)) {
+            return true;
+        }
+        else if(tryAttack(boardPos)) {
+            return false;
+        }
+
+        this.deselectUnit();
+
+        console.log("Invalid placement " + boardPos);
+        return false; 
+    }; 
+
+    function tryMove(boardPos) {
+
         var posIsValid = selectedUnitMovements.some(
             movePos => { return movePos.equals(boardPos); }
         );
@@ -64,21 +79,34 @@ var BattleLogic = function(board, players) {
 
             selectedUnit.remove();
             selectedUnit.place(board, boardPos);
-            board.clearHighlight();
 
             endTurn();
 
             return true;
         }
-        else {
-            console.log("Invalid placement " + boardPos);
+
+        return false;
+    };
+
+    function tryAttack(boardPos) {
+        var posIsValid = selectedUnitAttacks.some(
+            attackPos => { return attackPos.equals(boardPos); }
+        );
+
+        if(posIsValid) {
+
+            selectedUnit.attack(boardPos);
+
+            endTurn();
+
+            return true;
         }
 
-        this.deselectUnit();
-        return false; 
-    }; 
+        return false;
+    };
 
     function endTurn() {
+        board.clearHighlight();
         curPlayer = (curPlayer == 1) ? 0 : 1;
     };
 
