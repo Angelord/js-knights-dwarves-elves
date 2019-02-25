@@ -88,8 +88,12 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     };
 
     this.takeDamage = function(amount) {
-        curHealth -= amount;
+        var finalAmount = amount - armor;
+        if(finalAmount <= 0) { return; }
+
+        curHealth -= finalAmount;
         if(curHealth <= 0) {
+            console.log("Dead");
             // die();
         }
     };
