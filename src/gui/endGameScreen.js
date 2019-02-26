@@ -4,8 +4,8 @@ var endGameScreen = {};
 
 
 endGameScreen.playerPositions = [
-    new Point(100, 260),
-    new Point(100, 400)
+    new Point(140, 260),
+    new Point(140, 400)
 ];
 
 endGameScreen.scoreOffset = new Point(200, 0);
@@ -37,7 +37,7 @@ endGameScreen.draw = function(drawer) {
     function drawPlayer(player) {
 
         var index = player.getIndex();
-        var nameText = "Player " + (index + 1);
+        var nameText = "Player " + (index + 1) + (player.lost() ? "" : " (WINNER)");
         var scoreText = "Score " + player.getScore()
         var font = "25px Arial";
         var namePos = endGameScreen.playerPositions[index];

@@ -7,6 +7,7 @@ var Button = function(rect, text, color, focusedColor, pressedColor, textColor) 
 
     var curColor = color;
 
+
     this.setSize = function(sz) {
         rectRef.w = sz.x;
         rectRef.h = sz.y;
