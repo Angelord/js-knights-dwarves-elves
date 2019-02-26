@@ -74,6 +74,7 @@ var Board = function() {
 
     this.getPiece = function(pos) {
         if(!pos) { throw("Missing argument!"); }
+        if(!BOARD_RECT.contains(pos)) { return null; }
 
         return tiles[pos.x][pos.y];
     };
