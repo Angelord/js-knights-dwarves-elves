@@ -2,7 +2,7 @@
 var MIN_OBSTACLES = 1;
 var MAX_OBSTACLES = 5;
 
-var BattleLogic = function(board, players) {
+var BattleLogic = function(board, players, potion) {
 
     var curPlayer = 0;
     var selectedPiece = null;
@@ -95,6 +95,8 @@ var BattleLogic = function(board, players) {
 
     function placePotion(boardPos) {
 
+        if(selectedPiece.empty) { return false; }
+
         var pieceToHeal = board.getPiece(boardPos);
 
         if(pieceToHeal && pieceToHeal.type == "unit" && players[curPlayer].owns(pieceToHeal)) {
@@ -104,6 +106,7 @@ var BattleLogic = function(board, players) {
             var repeatTurnChance = dice.roll(1);
          
             if(repeatTurnChance % 2 == 0) {
+
                 endTurn();
             }
         }
@@ -151,6 +154,8 @@ var BattleLogic = function(board, players) {
     function endTurn() {
 
         board.clearHighlight();
+
+        potion.empty = false;
         
         curPlayer = (curPlayer == 1) ? 0 : 1;
     };

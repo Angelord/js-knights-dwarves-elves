@@ -12,7 +12,7 @@ var Game = function() {
     
     var logicStates = {
         "placement" : new PlacementLogic(board, players, changeLogic),
-        "battle" : new BattleLogic(board, players, changeLogic)
+        "battle" : new BattleLogic(board, players, potion, changeLogic)
     };
     var curLogic;
     this.getLogic = function() { return curLogic; };

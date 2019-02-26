@@ -5,6 +5,7 @@ var Potion = function(startingPos) {
     var worldPos = startingPos;
     var worldDrawOffset = new Point( -raycastSize.x/2, -raycastSize.y/2 );
     
+    this.empty = false;
     this.type = "potion";
 
     this.getWorldPos = function() {
@@ -26,8 +27,9 @@ var Potion = function(startingPos) {
 
     this.draw = function(drawer) {
 
+        var image = this.empty ? "potion_empty" : "potion";
         var offsetPos = worldPos.add(worldDrawOffset);
-        drawer.drawImage("potion", worldPos.add(worldDrawOffset), raycastSize);
+        drawer.drawImage(image, worldPos.add(worldDrawOffset), raycastSize);
     };
 
     this.heal = function(unit) {
@@ -38,6 +40,8 @@ var Potion = function(startingPos) {
         var healAmount = dice.getResult(0);
         unit.heal(healAmount);
 
+        this.empty = true;
+        
         console.log("Healing " + unit + " for " + healAmount);
     };
 };
