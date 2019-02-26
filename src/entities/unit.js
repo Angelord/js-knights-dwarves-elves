@@ -122,7 +122,9 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
 
     this.die = function() {
         this.remove();
+        this.getOwner().opponent.addKill(this);
         CollectionUtil.removeSpecific(this.getOwner().units, this);
+
         console.log("Dead");    
     };
 

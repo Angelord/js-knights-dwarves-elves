@@ -8,10 +8,13 @@
     <img id="potion" src="resources/potion.png" hidden />
     <img id="potion_empty" src="resources/potion_empty.png" hidden />
 
-    <canvas id="canvas" width="800" height="600"> </canvas>
+    <div class="center">
+        <canvas id="canvas" class="center" width="800" height="600"> </canvas>
+    </div>
 
     <div id = "devControls">
         <input type="button" value="Place Automatically" onclick="placeAutomatically()" />
+        <input type="button" value="Kill Opponent" onclick="killOpponent()" />        
     </div>
 
     <script src="src/util.js"></script>
@@ -28,8 +31,12 @@
     <script src="src/controllers/humanController.js"></script>
     <script src="src/pathfinding.js"></script>
 
-    <script src="src/logic/battleLogic.js"></script>
     <script src="src/logic/placementLogic.js"></script>
+    <script src="src/logic/battleLogic.js"></script>
+    <script src="src/logic/emptyLogic.js"></script>
+
+    <script src="src/gui/button.js"></script>
+    <script src="src/gui/endGameScreen.js"></script>
 
     <script src="src/dice.js"></script>
     <script src="src/game.js"></script>

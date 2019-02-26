@@ -11,12 +11,14 @@ var UNIT_OFFSET = new Point(60, 60);
 var Player = function(index, game) {
 
     var score = 0;
+    this.getScore = function() { return score; }
 
     var indexRef = index ? index : 0;
     this.getIndex = function() { return indexRef; }
 
     var offset = index == 0 ? PLAYER_1_OFFSET : PLAYER_2_OFFSET;
     var color = index == 0 ? PLAYER_1_COLOR : PLAYER_2_COLOR;
+    var kills = [];
     
     this.units = [
         createKnight(this), createKnight(this),
@@ -33,11 +35,25 @@ var Player = function(index, game) {
         }
     }
 
+    this.lost = function() {
+        return this.units.length == 0;
+    };
+
+    this.getKills = function() {
+        return kills;
+    };
+
+    this.addKill = function(unit) {
+        if(typeof unit == 'undefined') { throw("Missing argument!"); }
+
+        kills.push(unit);
+    };
+
     this.owns = function(unit) {
         if(typeof unit == 'undefined') { throw("Missing argument!"); }
 
         return (unit.getOwner && unit.getOwner() == this);
-    }
+    };
 
     this.getColor = function() {
         return color;
@@ -56,5 +72,6 @@ var Player = function(index, game) {
             var offsetPos = offset.add(OFFSET_SCORE);
             drawer.drawText(scoreText, "22px Arial", offsetPos, color );
         }
-    }
+    };
+
 };

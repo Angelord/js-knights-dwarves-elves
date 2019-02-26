@@ -1,11 +1,14 @@
 
-canvas {
-    border : 1px solid black;
+.center {
     padding-left: 0;
     padding-right: 0;
     margin-left: auto;
     margin-right: auto;
     display: block;
+}
+
+canvas {
+    border : 1px solid black;
     /* image-rendering: -moz-crisp-edges;
     image-rendering: -webkit-crisp-edges;
     image-rendering: pixelated;

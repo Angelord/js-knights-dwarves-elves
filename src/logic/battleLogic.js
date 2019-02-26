@@ -2,12 +2,15 @@
 var MIN_OBSTACLES = 1;
 var MAX_OBSTACLES = 5;
 
-var BattleLogic = function(board, players, potion) {
+var BattleLogic = function(game) {
 
     var curPlayer = 0;
     var selectedPiece = null;
     var selectedUnitMovements = null;
     var selectedUnitAttacks = null;
+    var board = game.getBoard();
+    var players = game.getPlayers();
+    var potion = game.getPotion();
 
     this.toString = function() { return "battle"; }
 
@@ -167,6 +170,10 @@ var BattleLogic = function(board, players, potion) {
 
         potion.empty = false;
         
+        if(players.some(player => { return player.lost() })) {
+            game.end();
+        }
+
         curPlayer = (curPlayer == 1) ? 0 : 1;
     };
 
