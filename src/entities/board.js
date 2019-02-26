@@ -48,11 +48,14 @@ var Board = function() {
         return playerIndex == 1 ? REGION_PLAYER_2 : REGION_PLAYER_1; 
     };
 
-    //Transforms world coordinates to board coordinates
-    this.worldToBoardPos = function(pos) {
-        if(!pos) { throw("Missing argument!"); }
+    /**
+     * Transforms world to board coordinates.
+     * @param {Point} worldPos        The world space position to transform.
+     */
+    this.worldToBoardPos = function(worldPos) {
+        if(!worldPos) { throw("Missing argument!"); }
 
-        var transformed = new Point(pos.x, pos.y);
+        var transformed = new Point(worldPos.x, worldPos.y);
         transformed = transformed.sub(OFFSET);
         transformed.x /= (TILE_SIZE.x + TILE_SPACING.x);
         transformed.y /= (TILE_SIZE.y + TILE_SPACING.y);
@@ -61,10 +64,14 @@ var Board = function() {
         return transformed;
     };
 
-    this.boardToWorldPos = function(pos) {
-        if(!pos) { throw("Missing argument!"); }
+    /**
+     * Transforms board to world coordinates.
+     * @param {Point} boardPos        The board space position to transform.
+     */
+    this.boardToWorldPos = function(boardPos) {
+        if(!boardPos) { throw("Missing argument!"); }
 
-        var transformed = new Point(pos.x, pos.y);
+        var transformed = new Point(boardPos.x, boardPos.y);
         transformed.x *= (TILE_SIZE.x + TILE_SPACING.x);
         transformed.y *= (TILE_SIZE.y + TILE_SPACING.y);
         transformed = transformed.add(OFFSET);
@@ -97,9 +104,14 @@ var Board = function() {
         }
     };
 
-    this.getEmptyPositions = function(rect) {
+    /**
+     * Returns all positions within 'area' that are not occupied by a game piece.
+     * Checks the entire board if no area is specified;
+     * @param {Rect} area        The area to check for empty positions. 
+     */
+    this.getEmptyPositions = function(area) {
         //Check entire board if no rect specified
-        var rectRef = rect ? rect : BOARD_RECT;
+        var rectRef = area ? area : BOARD_RECT;
 
         var emptyPositions = [];
         for(var x = rectRef.x; x < (rectRef.x + rectRef.w); x++) {

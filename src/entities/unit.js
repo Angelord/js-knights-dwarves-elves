@@ -162,9 +162,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     };
 
     this.update = function() {
-        // if(isPlaced()) {
-            // worldPos = getBoard().boardToWorldPos(getPos())
-        // }
+
     };
 
     this.draw = function(drawer) {
