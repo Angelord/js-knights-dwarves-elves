@@ -9,7 +9,8 @@ endGameScreen.playerPositions = [
 ];
 
 endGameScreen.scoreOffset = new Point(200, 0);
-endGameScreen.killsOffset = new Point(0, 50);
+endGameScreen.killTextOffset = new Point(0, 50);
+endGameScreen.killsOffset = new Point(100, 50);
 endGameScreen.killsSpacing = new Point(60, 0);
 
 endGameScreen.enable = function(game) {
@@ -64,7 +65,11 @@ endGameScreen.draw = function(drawer) {
 
         var index = player.getIndex();
         var kills = player.getKills();
-        var initialPos = endGameScreen.playerPositions[index].add(endGameScreen.killsOffset);
+        var playerPos = endGameScreen.playerPositions[index];
+        var textPos = playerPos.add(endGameScreen.killTextOffset);
+        var initialPos = playerPos.add(endGameScreen.killsOffset);
+
+        drawer.drawText("Kills : ", "25px Arial", textPos, player.getColor());
 
         var curPos = initialPos;
         kills.forEach( kill => {
