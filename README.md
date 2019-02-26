@@ -13,6 +13,7 @@ on the unit you wish to heal. Using the potion has a random chance of ending you
 
 For a more detailed description of the rules refer to the design document (Only in bulgarian - sorry).
 
+Developer controls are available under the game screen for testing.
 
 ### How to Run
 Simply open index.html with your browser.
