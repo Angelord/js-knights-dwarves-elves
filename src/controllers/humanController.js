@@ -1,6 +1,6 @@
 
-
-var HumanController = function(board, players, logic) {
+//Handles human input events and converts them into meaningfull calls for the game logic
+var HumanController = function(board, players, potion, logic) {
 
     var logicRef = logic;
 
@@ -16,6 +16,8 @@ var HumanController = function(board, players, logic) {
             raycastTargets.push(unit);
         });
     });
+
+    raycastTargets.push(potion);
 
     this.setLogic = function(value) { 
         deselect();

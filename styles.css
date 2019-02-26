@@ -6,6 +6,10 @@ canvas {
     margin-left: auto;
     margin-right: auto;
     display: block;
+    /* image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges; */
 }
 
 #devControls {

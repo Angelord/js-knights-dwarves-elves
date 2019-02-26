@@ -2,6 +2,8 @@
 
 var Game = function() {
 
+    var potion = new Potion(new Point(670, 520));
+
     var board = new Board();
     this.getBoard = function() { return board; } 
 
@@ -16,7 +18,7 @@ var Game = function() {
     this.getLogic = function() { return curLogic; };
     
     changeLogic("placement");
-    var controller = new HumanController(board, players, curLogic);
+    var controller = new HumanController(board, players, potion, curLogic);
 
     
     this.update = function() { };
@@ -34,6 +36,8 @@ var Game = function() {
         });
 
         dice.draw(drawer);
+
+        potion.draw(drawer);
     };
 
     function changeLogic(logicName) {

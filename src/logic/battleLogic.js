@@ -20,11 +20,12 @@ var BattleLogic = function(board, players) {
     this.getCurPlayer = function() { return players[curPlayer]; }
 
     this.select = function(gamePiece) { 
-        if(!players[curPlayer].owns(gamePiece)) {
-            return false;
-        }
 
         if(gamePiece.type == "unit") {
+
+            if(!players[curPlayer].owns(gamePiece)) {
+                return false;
+            }
             
             selectedPiece = gamePiece;
             selectedUnitMovements = pathfinding.getArea(
@@ -48,7 +49,10 @@ var BattleLogic = function(board, players) {
             return true; 
         }
         else if(gamePiece.type == "potion") {
-            return false;
+            
+            selectedPiece = gamePiece;
+
+            return true;
         }
 
         return false;
@@ -88,6 +92,15 @@ var BattleLogic = function(board, players) {
     };
 
     function placePotion(boardPos) {
+
+        var pieceAtPos = board.getPiece(boardPos);
+
+        if(pieceAtPos && pieceAtPos.type == "unit") {
+            selectedPiece.heal(pieceAtPos);
+            //TODO : Check if turn should be ended
+            endTurn();
+        }
+
         return false;
     };
 

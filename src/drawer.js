@@ -23,7 +23,16 @@ var Drawer = function(canvas) {
         context.fillStyle = colorRef;
         context.textAlign = "center";
         context.fillText(text, pos.x, pos.y); 
-    }
+    };
+
+    this.drawImage = function(id, pos, sz) {
+        var img = document.getElementById(id);
+        if(!img) {
+            throw("Image not found " + id);
+        }
+
+        context.drawImage(img, pos.x, pos.y, sz.x, sz.y);
+    };
 
     this.clear = function() {
         context.clearRect(0, 0, canvas.width, canvas.height);

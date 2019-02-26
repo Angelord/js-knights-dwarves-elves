@@ -66,7 +66,7 @@ var PlacementLogic = function(board, players, changeLogicCallback) {
             return true;
         }
         
-        deselect();
+        selectedUnit = null;
         return false;
     };
 
