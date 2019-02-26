@@ -162,11 +162,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
             curHealth = maxHealth;
         }
     };
-
-    this.update = function() {
-
-    };
-
+    
     this.draw = function(drawer) {
         if(!drawer) { return; }
 

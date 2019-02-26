@@ -145,9 +145,6 @@ var Board = function() {
             }
         }
     };
-    
-    this.update = function() { 
-    };
 
     this.draw = function(drawer) { 
         drawBackground(drawer);

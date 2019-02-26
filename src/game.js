@@ -28,8 +28,6 @@ var Game = function() {
     changeLogic("placement");
     var controller = new HumanController(board, players, potion, curLogic);
 
-    this.update = function() { };
-
     this.draw = function(drawer) {
 
         board.draw(drawer);
