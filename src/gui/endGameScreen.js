@@ -15,6 +15,17 @@ endGameScreen.killsSpacing = new Point(60, 0);
 endGameScreen.enable = function(game) {
     this.enabled = true;
     this.game = game;
+    this.button = new Button( new Rect(320, 500, 160, 80), 
+                        "Restart",  
+                        "32px Arial",
+                        "lightgray",
+                        "gray",
+                        "darkgray",
+                        "black");
+
+    this.button.onClick = function() {
+        location.reload();
+    };
 };
 
 endGameScreen.draw = function(drawer) {
@@ -33,6 +44,8 @@ endGameScreen.draw = function(drawer) {
         drawPlayer(player);
         drawPlayerKills(player);
     });
+
+    this.button.draw(drawer);
 
     function drawPlayer(player) {
 

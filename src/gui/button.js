@@ -1,44 +1,59 @@
 
 
-var Button = function(rect, text, color, focusedColor, pressedColor, textColor) {
+var Button = function(rect, text, font, color, focusedColor, pressedColor, textColor) {
 
-    var rectRef = rect ? rect : new Rect(0, 0, 0, 0);
-    var textRef = text ? text : "";
+    if(arguments.length != 7) { throw("Missing argument(s)!"); }
 
+    var instance = this;
     var curColor = color;
+    var focused = false;
 
+    var canvas = document.getElementById("canvas");
+    canvas.addEventListener("mousedown", onMouseDown);
+    canvas.addEventListener("mousemove", onMouseMove);
+    canvas.addEventListener("mouseup", onMouseUp);
+    canvas.addEventListener("click", onClick);
 
-    this.setSize = function(sz) {
-        rectRef.w = sz.x;
-        rectRef.h = sz.y;
+    function onClick(e) {
+        if(instance.onClick) {
+            instance.onClick();
+        }
     };
 
-    this.setPosition = function(pos) { 
-        rectRef.x = pos.x;
-        rectRef.y = pos.y;
+    function onMouseMove(e) {
+        var mousePos = new Point(e.offsetX, e.offsetY);
+         
+        var contains = rect.contains(mousePos);
+        if(!focused && contains) {
+            focused = true;
+            onFocus();
+        }
+        else if(focused && !contains) {
+            focused = false;
+            onFocusLost();
+        }
     };
 
-    this.raycast = function(pos) {
-        return rectRef.contains(pos);
-    };
-
-    this.draw = function(drawer) {
-        drawer.drawRect(rectRef, curColor);
-    };
-
-    this.onFocus = function() {
+    function onFocus() {
         curColor = focusedColor;
     };
 
-    this.onFocusLost = function() {
+    function onFocusLost() {
         curColor = color;
     };
 
-    this.onMouseDown = function() {
-        curColor = pressedColor;
+    function onMouseDown(e) {
+        if(focused) { 
+            curColor = pressedColor;
+        }
     };
 
-    this.onMouseUp = function() {
-        curColor = focusedColor;
+    function onMouseUp(e) {
+        curColor = focused ? focusedColor : color;
+    };
+
+    this.draw = function(drawer) {
+        drawer.drawRect(rect, curColor);
+        drawer.drawText(text, font, rect.getCenter(), textColor);
     };
 };

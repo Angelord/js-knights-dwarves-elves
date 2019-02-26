@@ -35,3 +35,7 @@ Rect.prototype.getPos = function() {
 Rect.prototype.getSize = function() {
     return new Point(this.w, this.h);
 };
+
+Rect.prototype.getCenter = function() {
+    return new Point(this.x + this.w / 2, this.y + this.h / 2);
+}
