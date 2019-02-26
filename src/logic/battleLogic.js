@@ -175,6 +175,10 @@ var BattleLogic = function(game) {
         }
 
         curPlayer = (curPlayer == 1) ? 0 : 1;
+    
+        if(curPlayer == 0) { 
+            game.incrementRounds();
+        }
     };
 
     function placeObstacles() {

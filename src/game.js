@@ -7,6 +7,7 @@ var Game = function() {
 
     var rounds = 0;
     this.getRounds = function() { return rounds; }
+    this.incrementRounds = function() { rounds++; }
 
     var board = new Board();
     this.getBoard = function() { return board; } 
