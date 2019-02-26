@@ -83,6 +83,37 @@ var BattleLogic = function(board, players, potion) {
         return false; 
     }; 
 
+    function placePotion(boardPos) {
+        
+        if(selectedPiece.empty) { return false; }
+
+        var pieceToHeal = board.getPiece(boardPos);
+
+        if(!pieceToHeal || pieceToHeal.type != "unit") { 
+            return false; 
+        }
+
+        if(!players[curPlayer].owns(pieceToHeal)) { 
+            console.log("Can't heal opponent's units!");
+            return false;
+        }
+
+        if(pieceToHeal.getHealth() == pieceToHeal.getMaxHealth()) { 
+            console.log("Unit already at max health!");
+            return false; 
+        }
+
+        selectedPiece.heal(pieceToHeal);
+
+        var repeatTurnChance = dice.roll(1);
+        if(repeatTurnChance % 2 == 0) {
+
+            endTurn();
+        }
+
+        return false;
+    };
+
     function placeUnit(boardPos) {
 
         if(tryMove(boardPos)) {
@@ -91,27 +122,6 @@ var BattleLogic = function(board, players, potion) {
         else if(tryAttack(boardPos)) {
             return false;
         }
-    };
-
-    function placePotion(boardPos) {
-
-        if(selectedPiece.empty) { return false; }
-
-        var pieceToHeal = board.getPiece(boardPos);
-
-        if(pieceToHeal && pieceToHeal.type == "unit" && players[curPlayer].owns(pieceToHeal)) {
-         
-            selectedPiece.heal(pieceToHeal);
-
-            var repeatTurnChance = dice.roll(1);
-         
-            if(repeatTurnChance % 2 == 0) {
-
-                endTurn();
-            }
-        }
-
-        return false;
     };
 
     function tryMove(boardPos) {

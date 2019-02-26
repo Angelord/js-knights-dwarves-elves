@@ -16,6 +16,7 @@ window.addEventListener('load', function(e) {
 // Main game loop
 function main(time) {
     
+    //Lock to our target frame rate
     if(time < lastFrameTime + 1000 / fps) {
         requestAnimationFrame(main);
         return;

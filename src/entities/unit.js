@@ -49,7 +49,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
     this.getMovement = function() { return movement; } 
     this.getAttRange = function() { return attRange; }
     this.getHealth = function() { return curHealth; }
-    this.getMaxHealth = function() { return this.health; }  
+    this.getMaxHealth = function() { return maxHealth; }  
     this.getBoard = function() { return boardRef; }
 
     this.isDead = function() { return curHealth <= 0; }

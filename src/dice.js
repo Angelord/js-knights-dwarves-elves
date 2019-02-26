@@ -21,7 +21,7 @@ dice.roll = function(numDice) {
         sum += roll;
     }
 
-    console.log("Dice Roll " + sum);
+    console.log("Dice Roll : " + sum);
 
     return sum;
 };
