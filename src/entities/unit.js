@@ -31,6 +31,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
 
     this.color = "#888888";
 
+    var maxHealth = health;
     var curHealth = health;
     var placed = false;
     var worldPos = new Point(0, 0);
@@ -127,6 +128,7 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
 
     this.takeDamage = function(amount, attacker) {
 
+        dice.clear();
         var diceResult = dice.roll(3);
 
         if(diceResult == curHealth) {
@@ -149,6 +151,13 @@ var Unit = function(owner, damage, armor, health, attRange, movement) {
         curHealth -= finalAmount;
         if(curHealth <= 0) {
             this.die();
+        }
+    };
+
+    this.heal = function(value) {
+        curHealth += value;
+        if(curHealth > maxHealth) {
+            curHealth = maxHealth;
         }
     };
 

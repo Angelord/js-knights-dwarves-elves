@@ -59,6 +59,7 @@ var BattleLogic = function(board, players) {
     };
 
     this.deselect = function() {
+
         selectedPiece = null;
         selectedUnitMovements = null;
         selectedUnitAttacks = null;
@@ -66,6 +67,7 @@ var BattleLogic = function(board, players) {
     };
 
     this.place = function(boardPos) {
+
         if(!selectedPiece) { return false; }
 
         if(selectedPiece.type == "unit") {
@@ -93,12 +95,17 @@ var BattleLogic = function(board, players) {
 
     function placePotion(boardPos) {
 
-        var pieceAtPos = board.getPiece(boardPos);
+        var pieceToHeal = board.getPiece(boardPos);
 
-        if(pieceAtPos && pieceAtPos.type == "unit") {
-            selectedPiece.heal(pieceAtPos);
-            //TODO : Check if turn should be ended
-            endTurn();
+        if(pieceToHeal && pieceToHeal.type == "unit" && players[curPlayer].owns(pieceToHeal)) {
+         
+            selectedPiece.heal(pieceToHeal);
+
+            var repeatTurnChance = dice.roll(1);
+         
+            if(repeatTurnChance % 2 == 0) {
+                endTurn();
+            }
         }
 
         return false;
@@ -124,6 +131,7 @@ var BattleLogic = function(board, players) {
     };
 
     function tryAttack(boardPos) {
+
         var posIsValid = selectedUnitAttacks.some(
             attackPos => { return attackPos.equals(boardPos); }
         );
@@ -141,7 +149,9 @@ var BattleLogic = function(board, players) {
     };
 
     function endTurn() {
+
         board.clearHighlight();
+        
         curPlayer = (curPlayer == 1) ? 0 : 1;
     };
 
@@ -152,6 +162,7 @@ var BattleLogic = function(board, players) {
         var emptyTiles = board.getEmptyPositions(battleRect);
         
         var numObstacles = getRandomInt(MIN_OBSTACLES, MAX_OBSTACLES);
+
         console.log("Placing " + numObstacles + " obstacles.");
 
         for(var i = 0; i < numObstacles; i++) {

@@ -7,9 +7,11 @@ var dice = {
     results : []
 };
 
-dice.roll = function(numDice) {
+dice.clear = function() {
     this.results = [];
+};
 
+dice.roll = function(numDice) {
     var numDiceRef = numDice ? numDice : 1;
 
     var sum = 0;
@@ -22,6 +24,20 @@ dice.roll = function(numDice) {
     console.log("Dice Roll " + sum);
 
     return sum;
+};
+
+dice.getTotal = function() {
+    var sum = 0;
+    for(var i = 0; i < results.length; i++) {
+        sum += results[i];
+    }
+    return sum;
+};
+
+dice.getResult = function(index) {
+    if(typeof index == "undefined") { throw("Missing argument!"); }
+
+    return this.results[index];
 };
 
 dice.draw = function(drawer) {

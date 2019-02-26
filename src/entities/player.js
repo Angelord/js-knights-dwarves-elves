@@ -51,7 +51,10 @@ var Player = function(index, game) {
         if(!drawer) { throw("Missing argument!"); }
 
         if(game.getLogic().toString() == "battle") { 
-            drawer.drawText("Score : " + score, "22px Arial", offset.add(OFFSET_SCORE), color );
+            
+            var scoreText = "Score : " + score;
+            var offsetPos = offset.add(OFFSET_SCORE);
+            drawer.drawText(scoreText, "22px Arial", offsetPos, color );
         }
     }
 };

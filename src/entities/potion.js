@@ -31,7 +31,13 @@ var Potion = function(startingPos) {
     };
 
     this.heal = function(unit) {
-        console.log("Healing " + unit);
 
+        dice.clear();
+        dice.roll(1);
+
+        var healAmount = dice.getResult(0);
+        unit.heal(healAmount);
+
+        console.log("Healing " + unit + " for " + healAmount);
     };
 };
